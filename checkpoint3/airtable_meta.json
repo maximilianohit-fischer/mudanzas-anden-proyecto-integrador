@@ -1,0 +1,126 @@
+{
+  "tables": [
+    {
+      "id": "tbl3EfZhgGvaNPjJ2",
+      "name": "Memoria",
+      "description": "Memoria de largo plazo de Andi (Mudanzas Andén): una fila por Session_ID. Solo resumen, estado y datos clave; nunca la conversación completa.",
+      "primaryFieldId": "fldHsqOH5ftw8O7uG",
+      "fields": [
+        {
+          "type": "singleLineText",
+          "id": "fldHsqOH5ftw8O7uG",
+          "name": "Session_ID",
+          "description": "Identificador de la sesión del chat. Clave de correlación: toda lectura y escritura filtra por este campo."
+        },
+        {
+          "type": "singleLineText",
+          "id": "fldBG9eiSK3o1IWMA",
+          "name": "Nombre del usuario",
+          "description": "Nombre que dio la persona (lo toma el Worker 1 al registrar el lead)."
+        },
+        {
+          "type": "dateTime",
+          "options": {
+            "dateFormat": {
+              "name": "european",
+              "format": "D/M/YYYY"
+            },
+            "timeFormat": {
+              "name": "24hour",
+              "format": "HH:mm"
+            },
+            "timeZone": "America/Argentina/Buenos_Aires"
+          },
+          "id": "fldKEt49SrXWbwhHp",
+          "name": "Fecha de actualización",
+          "description": "Última vez que el agente escribió la fila."
+        },
+        {
+          "type": "multilineText",
+          "id": "fldfSECv4D0qCnH4h",
+          "name": "Resumen consolidado",
+          "description": "JSON del resumidor: {asunto_principal, puntos_clave[], accion_requerida}. Se sobreescribe al superar 5 mensajes."
+        },
+        {
+          "type": "singleSelect",
+          "options": {
+            "choices": [
+              {
+                "id": "sel2jGGEihoeWU0ra",
+                "name": "nuevo",
+                "color": "grayLight2"
+              },
+              {
+                "id": "selbuPt2ASOPV8U0t",
+                "name": "en curso",
+                "color": "blueLight2"
+              },
+              {
+                "id": "selydaEzCSzFN7yTc",
+                "name": "lead registrado",
+                "color": "greenLight2"
+              },
+              {
+                "id": "sel1BbEcduGg6lq8W",
+                "name": "escalado",
+                "color": "orangeLight2"
+              },
+              {
+                "id": "selSoLZ4sy40InqI0",
+                "name": "fuera de ámbito",
+                "color": "redLight2"
+              }
+            ]
+          },
+          "id": "fldUzuQo8dXm3oaDi",
+          "name": "Estado del caso",
+          "description": "Estado del último caso según la ruta del Manager."
+        },
+        {
+          "type": "multilineText",
+          "id": "fldjca0WtJMRbd2aK",
+          "name": "Datos clave",
+          "description": "JSON con los datos del pedido (teléfono, origen, destino, ambientes, fecha, calificación)."
+        },
+        {
+          "type": "number",
+          "options": {
+            "precision": 0
+          },
+          "id": "fldMayuXOPh9sZTKb",
+          "name": "Mensajes",
+          "description": "Metadato: cantidad de turnos de la sesión. Dispara el resumen cuando supera 5."
+        },
+        {
+          "type": "createdTime",
+          "options": {
+            "result": {
+              "type": "dateTime",
+              "options": {
+                "dateFormat": {
+                  "name": "local",
+                  "format": "l"
+                },
+                "timeFormat": {
+                  "name": "12hour",
+                  "format": "h:mma"
+                },
+                "timeZone": "client"
+              }
+            }
+          },
+          "id": "fldR6bMIbZTYMEf3s",
+          "name": "Creado",
+          "description": "Metadato de auditoría: alta de la fila."
+        }
+      ],
+      "views": [
+        {
+          "id": "viwl4dkXsGTvIrcD5",
+          "name": "Grid view",
+          "type": "grid"
+        }
+      ]
+    }
+  ]
+}

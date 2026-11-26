@@ -3,8 +3,8 @@
 **Proyecto Integrador · AI Automation Avanzado (Coderhouse) · Maximiliano Herr · Noviembre 2026**
 
 Repositorio único del proyecto integrador: cada módulo importa el workflow del checkpoint anterior y
-lo extiende. Checkpoints entregados: **M1 · Agente autónomo básico funcional** y **M2 · Orquestación
-multi-agente con sub-workflows** (ver [`checkpoint2/`](checkpoint2/) y la sección 8).
+lo extiende. Checkpoints entregados: **M1 · Agente autónomo básico funcional**, **M2 · Orquestación
+multi-agente con sub-workflows** (sección 8) y **M3 · Memoria persistente y resumen agéntico** (sección 9).
 
 | Entregable | Archivo |
 |---|---|
@@ -139,7 +139,7 @@ cp workflow/config.example.json workflow/config.json   # IDs de credenciales, pl
 |---|---|
 | M1 ✅ | Trigger → AI Agent + System Prompt + 1 Tool → Log/Observabilidad |
 | M2 ✅ | Manager (router de triaje + Switch) → Worker 1 leads / Worker 2 escalamiento como sub-workflows |
-| M3 | Memoria persistente en Airtable por `Session_ID` |
+| M3 ✅ | Memoria persistente en Airtable por `Session_ID` + resumen automático |
 | M4 | CRM / Calendario / Workspace vía OAuth2 (cotizador del curso anterior como tool) |
 | M5 | RAG sobre la guía de clientes (LlamaCloud) |
 | M6 | Voz (STT/TTS) para audios de WhatsApp |
@@ -169,4 +169,31 @@ cp workflow/config.example.json workflow/config.json   # IDs de credenciales, pl
 URL=http://localhost:5678/webhook/ckp2-manager-mudanzas-anden/chat OUTDIR=respuestas_ckp2 ./workflow/run_tests.sh
 ./workflow/inspect_ckp2.sh 6     # resumen de las últimas ejecuciones (Manager y Workers)
 ./workflow/export_ckp2.sh        # exporta los 3 JSON a checkpoint2/
+```
+
+## 9. Checkpoint 3 (M3) · Memoria persistente y resumen agéntico
+
+| Entregable | Archivo |
+|---|---|
+| **PDF de la preentrega** | [`checkpoint3/PreEntrega_Modulo3_MaximilianoHerr.pdf`](checkpoint3/PreEntrega_Modulo3_MaximilianoHerr.pdf) (fuente: [`informe.html`](checkpoint3/informe.html), generado con [`workflow/build_informe_ckp3.py`](workflow/build_informe_ckp3.py)) |
+| Workflows exportados | [`manager_…`](checkpoint3/manager_modulo3_herr_maximiliano.json) · [`worker1_…`](checkpoint3/worker1_modulo3_herr_maximiliano.json) · [`worker2_…`](checkpoint3/worker2_modulo3_herr_maximiliano.json) |
+| Generador | [`workflow/build_checkpoint3.py`](workflow/build_checkpoint3.py) |
+| Prompts | Resumidor [`summary_prompt.md`](workflow/summary_prompt.md) · Worker 1 [`system_prompt_m3.md`](workflow/system_prompt_m3.md) (sección 9) · Router [`router_prompt_m3.md`](workflow/router_prompt_m3.md) |
+| Esquema de Airtable | [`workflow/airtable_tabla_memoria.json`](workflow/airtable_tabla_memoria.json) (para crear la tabla) · [`checkpoint3/airtable_meta.json`](checkpoint3/airtable_meta.json) (tal como quedó) |
+| Pruebas | [`pruebas/10_…`](pruebas/10_usuario_nuevo_y_resumen.json) a [`15_…`](pruebas/15_inyeccion_en_memoria.json) · respuestas en [`pruebas/respuestas_ckp3/`](pruebas/respuestas_ckp3/) |
+
+- **Lectura (Manager):** Chat → Airtable *Search Records* `{Session_ID} = sessionId` (máx. 1, *Always Output Data*) → IF ¿hay `id`?
+  → *true*: Set `user_name` / `status` / `last_summary` · *false*: *Create Record* + Set con textos neutros.
+- **Inyección (Worker 1, Tools Agent):** el System Prompt termina con `[INICIO DE CONTEXTO COMPARTIDO] … [FIN DEL CONTEXTO COMPARTIDO]`.
+- **Resumen:** cada turno se guarda en una memoria de sesión (RAM); con `Mensajes > 5` el Resumidor (`gemini-3.1-flash-lite`
+  + Structured Output Parser) devuelve `{asunto_principal, puntos_clave[], accion_requerida}`.
+- **Escritura:** un único *Update* por `id` (idempotente). Nunca se guarda la conversación. La respuesta al cliente es el último nodo.
+- Tabla `Memoria`: `Session_ID`, `Nombre del usuario`, `Fecha de actualización`, `Resumen consolidado`, `Estado del caso`,
+  `Datos clave` + metadatos `Mensajes` y `Creado`. Config: `cred_airtable`, `airtable_base`, `airtable_table` en `config.json`.
+
+```sh
+./workflow/redeploy_ckp3.sh      # genera, importa y publica los 3 workflows
+URL=http://localhost:5678/webhook/ckp3-manager-mudanzas-anden/chat OUTDIR=respuestas_ckp3 ./workflow/run_tests.sh 10_usuario_nuevo_y_resumen.json
+./workflow/inspect_ckp3.sh 6     # resumen de las últimas ejecuciones
+./workflow/export_ckp3.sh        # exporta los 3 JSON a checkpoint3/
 ```

@@ -1,0 +1,83 @@
+{
+  "name": "Memoria",
+  "description": "Memoria de largo plazo de Andi (Mudanzas Andén): una fila por Session_ID. Solo resumen, estado y datos clave; nunca la conversación completa.",
+  "fields": [
+    {
+      "name": "Session_ID",
+      "type": "singleLineText",
+      "description": "Identificador de la sesión del chat. Clave de correlación: toda lectura y escritura filtra por este campo."
+    },
+    {
+      "name": "Nombre del usuario",
+      "type": "singleLineText",
+      "description": "Nombre que dio la persona (lo toma el Worker 1 al registrar el lead)."
+    },
+    {
+      "name": "Fecha de actualización",
+      "type": "dateTime",
+      "description": "Última vez que el agente escribió la fila.",
+      "options": {
+        "timeZone": "America/Argentina/Buenos_Aires",
+        "dateFormat": {
+          "name": "european"
+        },
+        "timeFormat": {
+          "name": "24hour"
+        }
+      }
+    },
+    {
+      "name": "Resumen consolidado",
+      "type": "multilineText",
+      "description": "JSON del resumidor: {asunto_principal, puntos_clave[], accion_requerida}. Se sobreescribe al superar 5 mensajes."
+    },
+    {
+      "name": "Estado del caso",
+      "type": "singleSelect",
+      "description": "Estado del último caso según la ruta del Manager.",
+      "options": {
+        "choices": [
+          {
+            "name": "nuevo",
+            "color": "grayLight2"
+          },
+          {
+            "name": "en curso",
+            "color": "blueLight2"
+          },
+          {
+            "name": "lead registrado",
+            "color": "greenLight2"
+          },
+          {
+            "name": "escalado",
+            "color": "orangeLight2"
+          },
+          {
+            "name": "fuera de ámbito",
+            "color": "redLight2"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Datos clave",
+      "type": "multilineText",
+      "description": "JSON con los datos del pedido (teléfono, origen, destino, ambientes, fecha, calificación)."
+    },
+    {
+      "name": "Mensajes",
+      "type": "number",
+      "description": "Metadato: cantidad de turnos de la sesión. Dispara el resumen cuando supera 5.",
+      "options": {
+        "precision": 0
+      }
+    },
+    {
+      "name": "Creado",
+      "type": "createdTime",
+      "description": "Metadato de auditoría: alta de la fila."
+    }
+  ],
+  "_nota": "El campo 'Creado' (createdTime) no se puede crear junto con la tabla: se agrega después con POST .../fields."
+}

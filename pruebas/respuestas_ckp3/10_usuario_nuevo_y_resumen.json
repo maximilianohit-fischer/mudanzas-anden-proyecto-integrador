@@ -1,0 +1,44 @@
+[
+  {
+    "cliente": "Hola, quiero mudarme a Cipolletti, ¿me ayudan?",
+    "respuesta": {
+      "output": "¡Hola! Con gusto te ayudamos con eso desde Mudanzas Andén. Para pasarle tu pedido al equipo de presupuestos necesito tu nombre, un teléfono de contacto, desde qué localidad salís y cuántos ambientes tiene tu casa."
+    },
+    "segundos": 7
+  },
+  {
+    "cliente": "Soy Carla Méndez, 299 5123456. Salgo de un 2 ambientes en Santa Genoveva, Neuquén, el sábado 5 de diciembre.",
+    "respuesta": {
+      "output": "¡Listo, Carla! Ya registré tus datos en el sistema. Una persona del área de presupuestos te va a llamar por teléfono dentro de las 24 horas hábiles para pasarte la cotización."
+    },
+    "segundos": 8
+  },
+  {
+    "cliente": "¿Y cuánto me va a salir más o menos?",
+    "respuesta": {
+      "output": "Transfiero tu caso a una persona del equipo, que te va a escribir a la brevedad. Tu número de caso es ESC-293."
+    },
+    "segundos": 29
+  },
+  {
+    "cliente": "Me olvidaba: llevo heladera y lavarropas, y es un 3er piso por escalera.",
+    "respuesta": {
+      "output": "¡Hola, Carla! Quedate tranquila que ya le avisé al equipo y agregué esos detalles sobre la heladera, el lavarropas y el tercer piso por escalera a tu registro para que los tengan en cuenta cuando te llamen."
+    },
+    "segundos": 4
+  },
+  {
+    "cliente": "¿Me pasás una receta de empanadas para el día de la mudanza?",
+    "respuesta": {
+      "output": "Solo puedo ayudarte con consultas sobre mudanzas y fletes de Mudanzas Andén. Si necesitás mudarte, contame desde dónde, hacia dónde y cuántos ambientes son."
+    },
+    "segundos": 5
+  },
+  {
+    "cliente": "Perfecto, entonces quedo esperando que me llamen ustedes, ¿no?",
+    "respuesta": {
+      "output": "Transfiero tu caso a una persona del equipo, que te va a escribir a la brevedad. Tu número de caso es ESC-298."
+    },
+    "segundos": 10
+  }
+]

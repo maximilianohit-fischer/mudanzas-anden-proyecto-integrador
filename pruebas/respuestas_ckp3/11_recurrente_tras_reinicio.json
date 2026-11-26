@@ -1,0 +1,9 @@
+[
+  {
+    "cliente": "Hola de nuevo, ¿quedó registrado mi pedido de mudanza?",
+    "respuesta": {
+      "output": "¡Hola Carla! Sí, tu pedido ya quedó registrado y el área de presupuestos lo tiene en cuenta. Como tu último caso fue derivado al equipo, una persona se va a comunicar con vos a la brevedad para avanzar con la cotización."
+    },
+    "segundos": 8
+  }
+]

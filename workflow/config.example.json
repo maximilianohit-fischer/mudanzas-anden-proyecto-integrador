@@ -16,5 +16,12 @@
   },
   "router_model": "models/gemini-3.1-flash-lite",
   "w1_model": "models/gemini-3.1-flash-lite",
-  "w2_model": "models/gemini-3.5-flash-lite"
+  "w2_model": "models/gemini-3.5-flash-lite",
+  "cred_airtable": {
+    "id": "CRED_ID",
+    "name": "Airtable Personal Access Token account"
+  },
+  "airtable_base": "appXXXXXXXXXXXXXX",
+  "airtable_table": "tblXXXXXXXXXXXXXX",
+  "summary_model": "models/gemini-3.1-flash-lite"
 }

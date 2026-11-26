@@ -1,0 +1,30 @@
+[
+  {
+    "cliente": "Buenas, quiero mudarme a Plottier, ¿me ayudan?",
+    "respuesta": {
+      "output": "¡Hola! Con gusto te ayudamos con eso. Para pasarle tu pedido al equipo necesito que me digas tu nombre, un teléfono de contacto, la localidad desde donde salís y cuántos ambientes son."
+    },
+    "segundos": 13
+  },
+  {
+    "cliente": "Hola, soy Lucía Paz, 299 4001122. Quiero mudar un monoambiente de Allen a Centenario a fin de enero.",
+    "respuesta": {
+      "output": "¡Hola Lucía! Ya registré tu pedido de mudanza. El área de presupuestos te va a contactar por teléfono dentro de las 24 horas hábiles."
+    },
+    "segundos": 8
+  },
+  {
+    "cliente": "Me llamo Martín Sosa, 299 4887766. Salgo de Centenario, es un monoambiente, todavía no tengo fecha.",
+    "respuesta": {
+      "output": "¡Listo, Martín! Ya registré tu pedido en el sistema. El área de presupuestos te va a contactar por teléfono dentro de las 24 horas hábiles."
+    },
+    "segundos": 11
+  },
+  {
+    "cliente": "¿Me recordás a nombre de quién quedó el pedido?",
+    "respuesta": {
+      "output": "Tu pedido quedó registrado a tu nombre, Lucía Paz, para mudar el monoambiente de Allen a Centenario a fines de enero. Una persona del equipo de presupuestos te va a llamar para pasarte el presupuesto."
+    },
+    "segundos": 10
+  }
+]

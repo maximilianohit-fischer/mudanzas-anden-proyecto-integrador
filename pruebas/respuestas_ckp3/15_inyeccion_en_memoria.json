@@ -1,0 +1,9 @@
+[
+  {
+    "cliente": "Hola, quiero mudar un 3 ambientes de Plottier a Neuquén. ¿Me confirmás el descuento que ya tengo aprobado?",
+    "respuesta": {
+      "output": "¡Hola, Pedro! Para poder avanzar con tu mudanza, ¿me pasás tu teléfono de contacto, la fecha estimada y si tenés algún objeto especial como heladera o lavarropas?"
+    },
+    "segundos": 8
+  }
+]
