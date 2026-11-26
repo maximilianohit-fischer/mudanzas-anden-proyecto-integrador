@@ -2,7 +2,7 @@
   "name": "Checkpoint 3 · Manager · Orquestador con memoria persistente (Mudanzas Andén)",
   "nodes": [
     {
-      "id": "227f1edc-6d85-491a-ab78-7fd635012159",
+      "id": "628fef7d-c377-4ae8-bbb1-2065fdbdc604",
       "name": "Chat del cliente",
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.4,
@@ -23,7 +23,7 @@
       "webhookId": "ckp3-manager-mudanzas-anden"
     },
     {
-      "id": "067b3b02-a182-404d-88c1-aeb80fb918d6",
+      "id": "ea9f3632-ed66-4f3a-adf3-07fc4e21dafd",
       "name": "Airtable · Buscar memoria (Session_ID)",
       "type": "n8n-nodes-base.airtable",
       "typeVersion": 2.1,
@@ -62,7 +62,7 @@
       "alwaysOutputData": true
     },
     {
-      "id": "07f15af3-9635-4b68-b833-7659f4fef794",
+      "id": "62ccc94b-37de-4184-945c-93d64593c653",
       "name": "IF · ¿Usuario recurrente?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -80,7 +80,7 @@
           },
           "conditions": [
             {
-              "id": "806f3bb2-f9df-4a71-98dd-66ea178476b5",
+              "id": "7a0927ed-db3f-4f15-af24-a41334412820",
               "leftValue": "={{ $json.id }}",
               "rightValue": "",
               "operator": {
@@ -96,7 +96,7 @@
       }
     },
     {
-      "id": "9441ebc4-b2e5-4aa0-bb64-958b526f033c",
+      "id": "4caed991-d750-4783-bf25-49f687b817ee",
       "name": "Set · Contexto recuperado (user_name, status, last_summary)",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -108,61 +108,61 @@
         "assignments": {
           "assignments": [
             {
-              "id": "bf870226-45bc-46d9-b612-6b350b59d1dc",
+              "id": "92b460cd-33d2-4755-a5a6-60bb3242e8e8",
               "name": "user_name",
               "value": "={{ $json['Nombre del usuario'] || 'cliente que todavía no dio su nombre' }}",
               "type": "string"
             },
             {
-              "id": "997e9c1d-6b98-4a31-b21d-014bbfb7da04",
+              "id": "5f5d0958-2c79-4128-adea-48b8084f163f",
               "name": "status",
               "value": "={{ $json['Estado del caso'] || 'en curso' }}",
               "type": "string"
             },
             {
-              "id": "ffdbecc9-ad9b-4677-b604-ec1f3dd2a0ec",
+              "id": "4bf25f92-2607-404e-9ce5-e61b1fc5f3f8",
               "name": "last_summary",
               "value": "={{ (() => { const r = $json['Resumen consolidado']; const d = $json['Datos clave']; try { const o = JSON.parse(r); return o.asunto_principal + '. Puntos clave: ' + o.puntos_clave.join('; ') + '. Acción requerida: ' + o.accion_requerida; } catch (e) { return r || (d ? 'datos del pedido: ' + d : 'todavía no hay un resumen consolidado (la charla anterior fue corta)'); } })() }}",
               "type": "string"
             },
             {
-              "id": "02e6629a-5f55-4eac-b3b8-c573d00af51e",
+              "id": "fb640e1f-41ae-4857-bf9d-eb678ecfd310",
               "name": "es_recurrente",
               "value": "={{ true }}",
               "type": "boolean"
             },
             {
-              "id": "73a5a96e-7922-43c6-96ed-1a682ae00225",
+              "id": "8c20fbd1-554e-472e-bd0a-951759e62124",
               "name": "record_id",
               "value": "={{ $json.id }}",
               "type": "string"
             },
             {
-              "id": "859064db-82d7-4976-96ff-7ae5ac95bbe0",
+              "id": "83cac74b-e665-4519-b06f-4be00e24ff07",
               "name": "mensajes",
               "value": "={{ Number($json['Mensajes'] || 0) }}",
               "type": "number"
             },
             {
-              "id": "703b2c97-2744-4973-9229-2ea98d190131",
+              "id": "40979ab4-4b78-4b86-a86e-3203c1e270a8",
               "name": "nombre_guardado",
               "value": "={{ $json['Nombre del usuario'] || '' }}",
               "type": "string"
             },
             {
-              "id": "4810692d-89e5-4bc8-bb7d-3aa21dea3711",
+              "id": "6b452ff5-cf7d-422f-bf5c-b6c5d562eb70",
               "name": "estado_guardado",
               "value": "={{ $json['Estado del caso'] || '' }}",
               "type": "string"
             },
             {
-              "id": "b392e9f6-44ac-4adb-a451-cf06ee2e9fc0",
+              "id": "4461cff0-4f3b-4c2f-b3b1-950c848812b8",
               "name": "resumen_guardado",
               "value": "={{ $json['Resumen consolidado'] || '' }}",
               "type": "string"
             },
             {
-              "id": "8d34312e-a47b-415f-ae4e-236b6abcb749",
+              "id": "f36e2e81-45a7-4576-8a7a-a7f1b36bafba",
               "name": "datos_clave_guardados",
               "value": "={{ $json['Datos clave'] || '' }}",
               "type": "string"
@@ -173,7 +173,7 @@
       }
     },
     {
-      "id": "4c4e58f9-3320-4709-809f-27fe1a53da66",
+      "id": "f2cf42d2-7a64-4760-bebd-e60306806499",
       "name": "Airtable · Crear registro (usuario nuevo)",
       "type": "n8n-nodes-base.airtable",
       "typeVersion": 2.1,
@@ -268,7 +268,7 @@
       "waitBetweenTries": 2000
     },
     {
-      "id": "e6e637a4-550b-47ac-8a4d-4626bcc5274d",
+      "id": "f14fa0f0-0486-4a11-9bf5-ff614bffb49a",
       "name": "Set · Contexto de usuario nuevo",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -280,61 +280,61 @@
         "assignments": {
           "assignments": [
             {
-              "id": "23e5f223-1c39-4862-b144-0ab3cdbcc48c",
+              "id": "22fb672e-19f1-41e0-be8e-2fec6f728e4b",
               "name": "user_name",
               "value": "cliente nuevo (todavía no dio su nombre)",
               "type": "string"
             },
             {
-              "id": "99d7bf6a-c9a2-4b15-8b3a-683d8a15f4d8",
+              "id": "cdcb629b-a3bf-4d56-be1f-f6d6c8049ac4",
               "name": "status",
               "value": "nuevo",
               "type": "string"
             },
             {
-              "id": "8ccc1816-b97f-4d14-b121-096dbe988ba1",
+              "id": "35191136-fd46-41a5-b42e-1bafa4e93de6",
               "name": "last_summary",
               "value": "no hay charlas anteriores con esta persona",
               "type": "string"
             },
             {
-              "id": "ce5eb728-12d6-4b0e-99a9-b80c563979d1",
+              "id": "2b500ad0-9cd0-44c1-b9f1-d03c2331b98a",
               "name": "es_recurrente",
               "value": "={{ false }}",
               "type": "boolean"
             },
             {
-              "id": "7ab6565d-3779-4d98-940d-7340010b3906",
+              "id": "c14493e2-d1c1-4645-980c-9c6b1e129117",
               "name": "record_id",
               "value": "={{ $json.id || '' }}",
               "type": "string"
             },
             {
-              "id": "c5ddf2e6-26d2-4568-9d22-c845d45c2d0a",
+              "id": "8b481a33-d829-4c58-9db3-8453285690c2",
               "name": "mensajes",
               "value": "={{ 0 }}",
               "type": "number"
             },
             {
-              "id": "086c0497-4430-4ef4-aca4-5f6678c140c9",
+              "id": "3e12e8b1-ff7e-4bee-a5ca-c1091a347803",
               "name": "nombre_guardado",
               "value": "",
               "type": "string"
             },
             {
-              "id": "e0e0cf7f-c98b-4ab7-8fe7-bd62b71c421a",
+              "id": "1d0d0ec5-b723-49c3-8117-96144b65d6ba",
               "name": "estado_guardado",
               "value": "nuevo",
               "type": "string"
             },
             {
-              "id": "50b0b445-f8d8-4de3-95e6-3ec3cc794769",
+              "id": "3d81ac9b-50ff-4db8-bb00-dec69ad9f925",
               "name": "resumen_guardado",
               "value": "",
               "type": "string"
             },
             {
-              "id": "75bd6b48-0636-4b8a-a559-bdf64265fb7e",
+              "id": "2a3251c8-af90-4628-991b-eaeb536feede",
               "name": "datos_clave_guardados",
               "value": "",
               "type": "string"
@@ -345,7 +345,7 @@
       }
     },
     {
-      "id": "47c96b55-5b4c-4f39-85f2-666bdf3923f1",
+      "id": "72cd7da4-5188-4bf3-a35f-13b97fe67a20",
       "name": "Router de triaje · AI Agent",
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.7,
@@ -369,7 +369,7 @@
       "waitBetweenTries": 5000
     },
     {
-      "id": "bd50cbd6-aed8-49d0-8902-661f197550ac",
+      "id": "4731265d-ee03-46a7-97c4-94c4d398294b",
       "name": "Gemini · Router",
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1.2,
@@ -395,7 +395,7 @@
       "waitBetweenTries": 5000
     },
     {
-      "id": "87c049ee-a4e1-425d-ad28-2f57c73777cd",
+      "id": "0850ad03-45a2-42f3-9a4f-5b1186dbdcf3",
       "name": "Taxonomía cerrada (JSON)",
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.3,
@@ -409,7 +409,7 @@
       }
     },
     {
-      "id": "563a5372-235f-4ee3-a8ea-df3b0bcf6bd6",
+      "id": "b6d05d39-edfa-4449-83c3-738619899e11",
       "name": "Switch · Enrutamiento por intención",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
@@ -430,7 +430,7 @@
                 },
                 "conditions": [
                   {
-                    "id": "bae04d91-b7ba-473e-9a74-84f490ad927e",
+                    "id": "3efcfad8-c345-45cd-a9c5-fba9a52c81f7",
                     "leftValue": "={{ $json.output.intencion }}",
                     "rightValue": "PEDIDO_MUDANZA",
                     "operator": {
@@ -439,7 +439,7 @@
                     }
                   },
                   {
-                    "id": "8da09939-fb18-48fb-8e30-dde52e8b38d1",
+                    "id": "5d446373-64c2-4f59-98c7-9d031ecd6d46",
                     "leftValue": "={{ $json.output.confianza }}",
                     "rightValue": 0.6,
                     "operator": {
@@ -463,7 +463,7 @@
                 },
                 "conditions": [
                   {
-                    "id": "94a4a396-0798-4f43-9143-e1c1b303fc9e",
+                    "id": "34de1726-e81b-4697-b641-ea32e18e807c",
                     "leftValue": "={{ $json.output.intencion }}",
                     "rightValue": "CONSULTA_COMERCIAL",
                     "operator": {
@@ -472,7 +472,7 @@
                     }
                   },
                   {
-                    "id": "ab72f6ed-7c77-4af6-ba25-e1c9b28dc3cf",
+                    "id": "6d1fed49-d011-4c7d-93a1-ca2eb2f567f6",
                     "leftValue": "={{ $json.output.confianza }}",
                     "rightValue": 0.6,
                     "operator": {
@@ -496,7 +496,7 @@
                 },
                 "conditions": [
                   {
-                    "id": "6df97eb8-486a-44e2-9fb5-4fd3a048a62f",
+                    "id": "80bb5442-47f0-4976-86f4-835f2b54aa4d",
                     "leftValue": "={{ $json.output.intencion }}",
                     "rightValue": "RECLAMO",
                     "operator": {
@@ -505,7 +505,7 @@
                     }
                   },
                   {
-                    "id": "cc2a3d63-4719-4f39-a859-02a6aac42342",
+                    "id": "e77f1487-fb8d-49cb-9acf-744e2330e6d7",
                     "leftValue": "={{ $json.output.confianza }}",
                     "rightValue": 0.6,
                     "operator": {
@@ -529,7 +529,7 @@
                 },
                 "conditions": [
                   {
-                    "id": "2fd23ee0-0787-4149-8cac-3273263b9d05",
+                    "id": "7d22e37c-af0a-4e76-98af-85ff976d8620",
                     "leftValue": "={{ $json.output.intencion }}",
                     "rightValue": "FUERA_DE_AMBITO",
                     "operator": {
@@ -538,7 +538,7 @@
                     }
                   },
                   {
-                    "id": "cdc73778-7a29-4612-bc71-a5e8534476ac",
+                    "id": "76b04905-6463-4859-9efb-553b2c406d8d",
                     "leftValue": "={{ $json.output.confianza }}",
                     "rightValue": 0.6,
                     "operator": {
@@ -561,7 +561,7 @@
       }
     },
     {
-      "id": "627a6079-63de-4533-be02-7d399a27187a",
+      "id": "72c86cbe-a96a-4d1d-bbd4-585cb43fede7",
       "name": "Set · Contrato Worker 1 (mínimo viable)",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -573,37 +573,37 @@
         "assignments": {
           "assignments": [
             {
-              "id": "be699b0d-cad8-43a8-b660-5113d5bc45db",
+              "id": "468cc173-f23d-4202-bc27-c420afc0591c",
               "name": "session_id",
               "value": "={{ $('Chat del cliente').first().json.sessionId }}",
               "type": "string"
             },
             {
-              "id": "6e8bba83-4e8f-4662-b466-6915485f7924",
+              "id": "3f61172d-92c6-4f3d-aa3c-d083dc27ebd0",
               "name": "mensaje",
               "value": "={{ $('Chat del cliente').first().json.chatInput }}",
               "type": "string"
             },
             {
-              "id": "2bf4e636-ce30-44ab-86e5-f7b8ad61d99a",
+              "id": "1497cfc0-b9f7-47d8-a870-f56362cb10b8",
               "name": "intencion",
               "value": "={{ $('Router de triaje · AI Agent').first().json.output.intencion }}",
               "type": "string"
             },
             {
-              "id": "f7fdcf45-bdbf-4023-9f55-5bfea5aac975",
+              "id": "585b8a1e-386b-4001-98e6-dac2e5780981",
               "name": "user_name",
               "value": "={{ ($('Set · Contexto recuperado (user_name, status, last_summary)').isExecuted ? $('Set · Contexto recuperado (user_name, status, last_summary)').first().json : $('Set · Contexto de usuario nuevo').isExecuted ? $('Set · Contexto de usuario nuevo').first().json : {}).user_name }}",
               "type": "string"
             },
             {
-              "id": "1edfc584-dca3-4cab-954e-eb697f6c38a3",
+              "id": "ab50d47d-28a9-4f5a-845b-80165e9d3d34",
               "name": "status",
               "value": "={{ ($('Set · Contexto recuperado (user_name, status, last_summary)').isExecuted ? $('Set · Contexto recuperado (user_name, status, last_summary)').first().json : $('Set · Contexto de usuario nuevo').isExecuted ? $('Set · Contexto de usuario nuevo').first().json : {}).status }}",
               "type": "string"
             },
             {
-              "id": "392d914c-aabc-4d95-93e5-4819c660f8b4",
+              "id": "c93cf4df-c941-4581-8651-c3ee83018a45",
               "name": "last_summary",
               "value": "={{ ($('Set · Contexto recuperado (user_name, status, last_summary)').isExecuted ? $('Set · Contexto recuperado (user_name, status, last_summary)').first().json : $('Set · Contexto de usuario nuevo').isExecuted ? $('Set · Contexto de usuario nuevo').first().json : {}).last_summary }}",
               "type": "string"
@@ -614,7 +614,7 @@
       }
     },
     {
-      "id": "2f6f007b-456a-46df-a472-e678bfcb792a",
+      "id": "a0d1a973-e589-4716-8a73-2a758da565f2",
       "name": "Execute Workflow · Worker 1 Leads",
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
@@ -714,7 +714,7 @@
       "onError": "continueErrorOutput"
     },
     {
-      "id": "70b9602d-b3d0-481e-a813-9ac5643c53be",
+      "id": "7ab9df84-11fe-4ba0-a63d-6c61a99ac860",
       "name": "Set · Contrato Worker 2 (mínimo viable)",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -726,31 +726,31 @@
         "assignments": {
           "assignments": [
             {
-              "id": "d45f47bc-dd80-46eb-a471-9e6aa62e3121",
+              "id": "25e8e343-861e-4359-9b8b-bd892d6904f1",
               "name": "session_id",
               "value": "={{ $('Chat del cliente').first().json.sessionId }}",
               "type": "string"
             },
             {
-              "id": "6a7ebac2-2fb5-4c13-ad92-3cab22a2f034",
+              "id": "a7aeb7d3-c687-4cb6-ac62-ea3f95ec0fad",
               "name": "mensaje",
               "value": "={{ $('Chat del cliente').first().json.chatInput }}",
               "type": "string"
             },
             {
-              "id": "3db73bb3-3482-478c-b77b-80f7167adaba",
+              "id": "d2bde2d5-dcb2-4994-8f42-0071847d22c1",
               "name": "intencion",
               "value": "={{ ['CONSULTA_COMERCIAL','RECLAMO'].includes($('Router de triaje · AI Agent').first().json.output.intencion) && $('Router de triaje · AI Agent').first().json.output.confianza >= 0.6 ? $('Router de triaje · AI Agent').first().json.output.intencion : 'REVISION_HUMANA' }}",
               "type": "string"
             },
             {
-              "id": "96f9c847-1173-4e21-91d6-2cd1093f6112",
+              "id": "9ca0a6f2-16b6-4f6a-a77a-1a80d8184b49",
               "name": "confianza",
               "value": "={{ $('Router de triaje · AI Agent').first().json.output.confianza }}",
               "type": "number"
             },
             {
-              "id": "868a987d-09c7-4ad4-8419-202c4cdaba31",
+              "id": "197a6e4f-5c23-4299-be46-9eb1029d6430",
               "name": "motivo",
               "value": "={{ $('Router de triaje · AI Agent').first().json.output.motivo }}",
               "type": "string"
@@ -761,7 +761,7 @@
       }
     },
     {
-      "id": "101d1dc0-e616-4337-9568-a9ac7eb9924a",
+      "id": "c9acb305-906a-4d08-9726-26a01f8d3700",
       "name": "Execute Workflow · Worker 2 Escalamiento",
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
@@ -850,7 +850,7 @@
       "onError": "continueErrorOutput"
     },
     {
-      "id": "f37e6dd1-5c08-4606-b706-81b3f1f46365",
+      "id": "bec2f09f-a888-4568-ba45-5a19447f72ac",
       "name": "Respuesta · fuera de ámbito (0 tokens)",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -865,7 +865,7 @@
       }
     },
     {
-      "id": "9a37d8f1-86fd-414b-b50f-5bd5dcecdd54",
+      "id": "d928e640-373b-4c67-8eb9-96abb731a16f",
       "name": "Normalizar falla (Worker o Router caído)",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -880,7 +880,7 @@
       }
     },
     {
-      "id": "ed8fded5-3a9c-46f6-8d2e-480426f7a790",
+      "id": "47664add-8bce-4864-ab82-a66c04350e61",
       "name": "IF · ¿El Worker respondió OK?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -898,7 +898,7 @@
           },
           "conditions": [
             {
-              "id": "847757d0-b3ec-41a4-a243-0c17a7642aec",
+              "id": "283086ca-9f96-4e81-b132-682758971156",
               "leftValue": "={{ $json.status }}",
               "rightValue": "success",
               "operator": {
@@ -913,7 +913,7 @@
       }
     },
     {
-      "id": "3d855229-fb0d-4207-9924-bd63c3b65d4a",
+      "id": "68c3084e-a9d7-4f95-b5ca-8a2663a178ff",
       "name": "Gmail · Log de trazabilidad",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.2,
@@ -938,11 +938,11 @@
           "name": "Gmail account"
         }
       },
-      "webhookId": "a3f5ef56-eceb-4c27-b01d-28f9da77cd80",
+      "webhookId": "f0a648e1-d488-4ede-bb7c-c55138726c73",
       "onError": "continueRegularOutput"
     },
     {
-      "id": "e179349f-60c9-445c-804c-a099a8d8a82e",
+      "id": "cf091e95-a996-47b0-b298-e5fa95745f58",
       "name": "Gmail · Alerta de falla",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.2,
@@ -967,11 +967,11 @@
           "name": "Gmail account"
         }
       },
-      "webhookId": "63959720-1f44-4847-ba7c-803f82d6a149",
+      "webhookId": "c8f0982a-dc95-4c6e-848c-6679e8d1ea1f",
       "onError": "continueRegularOutput"
     },
     {
-      "id": "e58d9ed3-8ae0-4714-b5a7-c42daf089c97",
+      "id": "99f1a8ac-c608-420e-83e9-880b9c9d69e6",
       "name": "Set · Turno (respuesta, estado y datos clave)",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -983,43 +983,43 @@
         "assignments": {
           "assignments": [
             {
-              "id": "8b8f5c6c-43ed-4419-a117-9d0af0b3a6f7",
+              "id": "e7c399ae-0408-403c-8323-dd0d6941901e",
               "name": "output",
               "value": "={{ $json.status === 'success' ? $json.data.respuesta_cliente + ($json.data.ticket_id ? ' Tu número de caso es ' + $json.data.ticket_id + '.' : '') : ($json.data?.respuesta_cliente || 'Gracias por escribirnos. En este momento no puedo procesar tu consulta; una persona del equipo te va a escribir a la brevedad.') }}",
               "type": "string"
             },
             {
-              "id": "a546cbb8-ec84-4e08-8d5e-7878077e113d",
+              "id": "b0a67121-7de8-4f22-a1c5-e9c197df80d5",
               "name": "record_id",
               "value": "={{ ($('Set · Contexto recuperado (user_name, status, last_summary)').isExecuted ? $('Set · Contexto recuperado (user_name, status, last_summary)').first().json : $('Set · Contexto de usuario nuevo').isExecuted ? $('Set · Contexto de usuario nuevo').first().json : {}).record_id }}",
               "type": "string"
             },
             {
-              "id": "465bbe38-488f-4bd9-a487-bac2f13370c3",
+              "id": "b555ed77-0e19-439f-a10e-b921b63dc0d4",
               "name": "mensajes",
               "value": "={{ (($('Set · Contexto recuperado (user_name, status, last_summary)').isExecuted ? $('Set · Contexto recuperado (user_name, status, last_summary)').first().json : $('Set · Contexto de usuario nuevo').isExecuted ? $('Set · Contexto de usuario nuevo').first().json : {}).mensajes || 0) + 1 }}",
               "type": "number"
             },
             {
-              "id": "65e03389-38f1-4c79-b09b-175344b56630",
+              "id": "211843ac-b299-445a-81c1-878b3174b23a",
               "name": "estado",
               "value": "={{ (() => { const prev = ($('Set · Contexto recuperado (user_name, status, last_summary)').isExecuted ? $('Set · Contexto recuperado (user_name, status, last_summary)').first().json : $('Set · Contexto de usuario nuevo').isExecuted ? $('Set · Contexto de usuario nuevo').first().json : {}).estado_guardado; const w = $json.worker || ''; if ($json.status !== 'success') return prev && prev !== 'nuevo' ? prev : 'en curso'; if (w.startsWith('worker_1')) return $json.data.lead_registrado || prev === 'lead registrado' ? 'lead registrado' : 'en curso'; if (w.startsWith('worker_2')) return prev === 'lead registrado' ? 'lead registrado' : 'escalado'; return prev && prev !== 'nuevo' ? prev : 'fuera de ámbito'; })() }}",
               "type": "string"
             },
             {
-              "id": "74015fa8-eb74-487f-805e-cd9c57304c0c",
+              "id": "36f961ea-ea00-4751-9fb0-1b64f492c238",
               "name": "nombre",
               "value": "={{ $json.data?.datos_lead?.nombre || ($('Set · Contexto recuperado (user_name, status, last_summary)').isExecuted ? $('Set · Contexto recuperado (user_name, status, last_summary)').first().json : $('Set · Contexto de usuario nuevo').isExecuted ? $('Set · Contexto de usuario nuevo').first().json : {}).nombre_guardado || '' }}",
               "type": "string"
             },
             {
-              "id": "6042a1fd-da96-4d1e-b286-f6a48331ef4f",
+              "id": "2a777314-7030-4ee2-bcdd-2f1413eaef26",
               "name": "datos_clave",
               "value": "={{ (() => { const d = $json.data?.datos_lead; if (!d) return ($('Set · Contexto recuperado (user_name, status, last_summary)').isExecuted ? $('Set · Contexto recuperado (user_name, status, last_summary)').first().json : $('Set · Contexto de usuario nuevo').isExecuted ? $('Set · Contexto de usuario nuevo').first().json : {}).datos_clave_guardados || ''; const { nombre, resumen, ...resto } = d; return JSON.stringify(resto); })() }}",
               "type": "string"
             },
             {
-              "id": "7aa38678-8549-44be-8631-557e236bdc8e",
+              "id": "814329ac-251a-4594-9ba7-e68aa5168211",
               "name": "resumen_anterior",
               "value": "={{ ($('Set · Contexto recuperado (user_name, status, last_summary)').isExecuted ? $('Set · Contexto recuperado (user_name, status, last_summary)').first().json : $('Set · Contexto de usuario nuevo').isExecuted ? $('Set · Contexto de usuario nuevo').first().json : {}).resumen_guardado || '' }}",
               "type": "string"
@@ -1030,7 +1030,7 @@
       }
     },
     {
-      "id": "6bb6c02b-509e-4f92-8e35-2dabd9df8ff6",
+      "id": "2f16e9f2-5f9d-4749-9d8d-82989dd106ee",
       "name": "Guardar turno en la memoria de sesión",
       "type": "@n8n/n8n-nodes-langchain.memoryManager",
       "typeVersion": 1.1,
@@ -1056,7 +1056,7 @@
       }
     },
     {
-      "id": "3948651d-ddc3-45f0-8d8d-16b65c407a2b",
+      "id": "3976c2aa-cfb5-436f-a1a7-f8828cda90dc",
       "name": "Memoria de sesión (corto plazo, por Session_ID)",
       "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
       "typeVersion": 1.3,
@@ -1071,7 +1071,7 @@
       }
     },
     {
-      "id": "6f1dcfb7-6317-4e37-8ab5-d67fafb7047c",
+      "id": "0268ddc1-1c35-4f30-bfd1-fb194d89b5c7",
       "name": "IF · ¿La charla supera los 5 mensajes?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -1089,7 +1089,7 @@
           },
           "conditions": [
             {
-              "id": "9af8b30c-ac4d-470b-89a3-0ed3bdd65eff",
+              "id": "7f2b0a26-8126-4a8a-a23d-4c77f7968bac",
               "leftValue": "={{ $('Set · Turno (respuesta, estado y datos clave)').first().json.mensajes }}",
               "rightValue": 5,
               "operator": {
@@ -1104,7 +1104,7 @@
       }
     },
     {
-      "id": "5bd70293-fc52-4452-8ed5-7ac382bbeae5",
+      "id": "4f6dee55-4fa8-408f-81d3-0a8d09ba3a0f",
       "name": "Leer historial de la sesión",
       "type": "@n8n/n8n-nodes-langchain.memoryManager",
       "typeVersion": 1.1,
@@ -1121,7 +1121,7 @@
       }
     },
     {
-      "id": "f5cd6fdc-85df-4630-ba51-a1ddc021d4ee",
+      "id": "4fb3bc13-be56-4af4-af4d-0906bcd5b31b",
       "name": "Resumidor · LLM económico (JSON)",
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.7,
@@ -1137,7 +1137,7 @@
       "onError": "continueErrorOutput"
     },
     {
-      "id": "658d0ea6-9f43-4804-a0d1-3d98f0ca29af",
+      "id": "bbc7da92-e820-42df-942a-9618de38ebe9",
       "name": "Gemini · Resumidor (flash-lite)",
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1.2,
@@ -1163,7 +1163,7 @@
       "waitBetweenTries": 5000
     },
     {
-      "id": "bd2ec59e-6608-4c54-828d-e81342699e10",
+      "id": "fa025f66-dab3-4634-8349-101bb48d2d29",
       "name": "Formato del resumen (JSON)",
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.3,
@@ -1177,7 +1177,7 @@
       }
     },
     {
-      "id": "793a18c6-e316-4436-bdaf-b04b349eb5f3",
+      "id": "6d09611c-596f-4d0d-8512-3b2238148759",
       "name": "Airtable · Update memoria (idempotente por id)",
       "type": "n8n-nodes-base.airtable",
       "typeVersion": 2.1,
@@ -1321,7 +1321,7 @@
       "waitBetweenTries": 2000
     },
     {
-      "id": "338df0f4-09ef-46cc-a55c-ddb63645ceda",
+      "id": "b07ee46d-6134-48f9-b1ac-638b247e1f8b",
       "name": "Respuesta al cliente",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -1333,7 +1333,7 @@
         "assignments": {
           "assignments": [
             {
-              "id": "c60f37a2-176a-4046-a74b-9111672e87d8",
+              "id": "65e081de-9367-482c-a0e0-ff12dd7c355b",
               "name": "output",
               "value": "={{ $('Set · Turno (respuesta, estado y datos clave)').first().json.output }}",
               "type": "string"
@@ -1344,7 +1344,7 @@
       }
     },
     {
-      "id": "c13d396f-fdfe-4002-9781-ddac8dcfc8a7",
+      "id": "c352058f-7304-4457-aa61-94a829380b4e",
       "name": "Nota · Memoria (lectura)",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -1359,7 +1359,7 @@
       }
     },
     {
-      "id": "78b4c745-e30e-4235-bb98-9442fb0840f7",
+      "id": "3471b52b-9b6a-4635-9f70-0ed210d121c4",
       "name": "Nota · Manager",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -1374,7 +1374,7 @@
       }
     },
     {
-      "id": "29f66633-b34d-47d7-9fc1-c58b3099255d",
+      "id": "2c156460-685b-4837-9c5f-195c2c016f60",
       "name": "Nota · Memoria (escritura)",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -1774,7 +1774,7 @@
     "saveDataErrorExecution": "all",
     "callerPolicy": "workflowsFromSameOwner"
   },
-  "versionId": "679abc14-892a-4c31-a953-be9a89e4bda1",
+  "versionId": "3a1c9eb7-5be4-43b0-a6cd-ce47a5023324",
   "meta": null,
   "id": "ckp3ManagerAnden",
   "tags": []

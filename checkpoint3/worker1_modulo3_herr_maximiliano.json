@@ -2,7 +2,7 @@
   "name": "Checkpoint 3 · Worker 1 · Calificación y registro de leads (con contexto)",
   "nodes": [
     {
-      "id": "0df465e8-76bb-4610-8386-48137a5c9dc1",
+      "id": "b61a2922-e7db-4433-bca6-94b67edfc78b",
       "name": "Execute Workflow Trigger",
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
@@ -42,7 +42,7 @@
       }
     },
     {
-      "id": "9d20c48a-e6fc-4bc3-9828-0f07da45414d",
+      "id": "3eff4a31-8db6-42cc-8010-c8d218e48da3",
       "name": "Andi · AI Agent (Tools Agent)",
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.7,
@@ -63,7 +63,7 @@
       "onError": "continueErrorOutput"
     },
     {
-      "id": "dc0b243a-f489-4e3c-8fce-dc3518ec4f64",
+      "id": "4716288a-291e-4548-93de-f2edc2f1765a",
       "name": "Google Gemini Chat Model",
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1.2,
@@ -89,7 +89,7 @@
       "waitBetweenTries": 5000
     },
     {
-      "id": "cc74c834-b3eb-4b37-b169-0d7ffea5b745",
+      "id": "a2cd9b56-3372-41d4-b136-f77e52397f21",
       "name": "Memoria de la charla (por session_id)",
       "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
       "typeVersion": 1.3,
@@ -104,7 +104,7 @@
       }
     },
     {
-      "id": "d969a4df-5f60-4050-85a7-a13b43ea9c3e",
+      "id": "c3235da2-b9d0-4d4a-8129-7d6d163958b8",
       "name": "registrar_lead",
       "type": "n8n-nodes-base.googleSheetsTool",
       "typeVersion": 4.7,
@@ -266,7 +266,7 @@
       }
     },
     {
-      "id": "1a1a44d3-37ee-4094-a3ba-d5755723c39f",
+      "id": "64266160-0e60-4c3e-a978-d4dee42d6f29",
       "name": "Contrato de salida · success",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -281,7 +281,7 @@
       }
     },
     {
-      "id": "d9bc7c29-b46b-4e59-bab6-a59b298d2d36",
+      "id": "1d89d80c-aa96-45fc-819b-03f37f3518d7",
       "name": "Contrato de salida · error (contingencia)",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -296,7 +296,7 @@
       }
     },
     {
-      "id": "47fc9dc9-14a3-4d62-84d5-70640e8f2a81",
+      "id": "afb6f3b7-98a3-43a7-b817-ecb99f9d2aad",
       "name": "Nota · Worker 1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -387,7 +387,7 @@
     "callerPolicy": "workflowsFromSameOwner",
     "executionTimeout": 60
   },
-  "versionId": "d6d5419d-f8fd-47df-a689-1b4586e15f4d",
+  "versionId": "87e1d418-bc53-4573-9d13-11c85c2eecd8",
   "meta": null,
   "id": "ckp3WorkerLeads1",
   "tags": []

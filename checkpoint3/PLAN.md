@@ -122,3 +122,10 @@ idioma español rioplatense sin lenguaje inclusivo, y un ejemplo de salida. El p
 
 0 Preparación Airtable → 1 spikes → 2 generador y deploy → 3 pruebas → 4 export y capturas → 5 PDF → 6 README y commit
 (antes, commitear el M2 que hoy está sin commitear).
+
+## Diferencias con lo implementado (26/11/2026)
+- Usuario nuevo: el bloque de contexto no se omite; va con textos neutros ("cliente nuevo…") para mantener la plantilla literal de la consigna.
+- Worker 2 no recibe la memoria (no la necesita para redactar el correo).
+- Se sumaron `router_prompt_m3.md` (el seguimiento del propio pedido es PEDIDO_MUDANZA) y la regla de que "lead registrado" no se degrada.
+- Worker 1 usa `gemini-3.5-flash-lite` (`3.1-flash-lite` dio "Service unavailable"); el resumidor sigue en `3.1-flash-lite`.
+- Prueba 13 quedó dentro de la 10; se agregaron la 16 (falla forzada del resumidor) y la 17 (caída real del router).
