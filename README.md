@@ -89,7 +89,7 @@ presupuestos llame. La cotización automática se suma en módulos posteriores (
 
 ## 5. Pruebas (ejecuciones reales, 26/11/2026)
 
-Todas terminaron en verde. Por cada una llegó el mail de log.
+Todas terminaron en verde y en cada una el nodo Gmail de log se ejecutó sin errores.
 
 | # | Mensaje | ¿Usó la tool? | Respuesta del agente |
 |---|---|---|---|
