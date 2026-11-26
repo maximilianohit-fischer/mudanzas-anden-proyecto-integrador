@@ -3,7 +3,8 @@
 **Proyecto Integrador · AI Automation Avanzado (Coderhouse) · Maximiliano Herr · Noviembre 2026**
 
 Repositorio único del proyecto integrador: cada módulo importa el workflow del checkpoint anterior y
-lo extiende. Este es el **Checkpoint 1 (M1) · Agente autónomo básico funcional**.
+lo extiende. Checkpoints entregados: **M1 · Agente autónomo básico funcional** y **M2 · Orquestación
+multi-agente con sub-workflows** (ver [`checkpoint2/`](checkpoint2/) y la sección 8).
 
 | Entregable | Archivo |
 |---|---|
@@ -137,9 +138,35 @@ cp workflow/config.example.json workflow/config.json   # IDs de credenciales, pl
 | Módulo | Qué se suma al workflow |
 |---|---|
 | M1 ✅ | Trigger → AI Agent + System Prompt + 1 Tool → Log/Observabilidad |
-| M2 | Manager → Workers como sub-workflows (calificación, cotización, escalamiento) |
+| M2 ✅ | Manager (router de triaje + Switch) → Worker 1 leads / Worker 2 escalamiento como sub-workflows |
 | M3 | Memoria persistente en Airtable por `Session_ID` |
 | M4 | CRM / Calendario / Workspace vía OAuth2 (cotizador del curso anterior como tool) |
 | M5 | RAG sobre la guía de clientes (LlamaCloud) |
 | M6 | Voz (STT/TTS) para audios de WhatsApp |
 | … M11 | Proyecto final integrador |
+
+## 8. Checkpoint 2 (M2) · Orquestación multi-agente Manager-Worker
+
+| Entregable | Archivo |
+|---|---|
+| **PDF de la preentrega** | [`checkpoint2/preentrega_modulo2_herr_maximiliano.pdf`](checkpoint2/preentrega_modulo2_herr_maximiliano.pdf) (fuente: [`informe.html`](checkpoint2/informe.html), capturas en [`checkpoint2/capturas/`](checkpoint2/capturas/)) |
+| Workflows exportados | [`manager_…`](checkpoint2/manager_modulo2_herr_maximiliano.json) · [`worker1_…`](checkpoint2/worker1_modulo2_herr_maximiliano.json) · [`worker2_…`](checkpoint2/worker2_modulo2_herr_maximiliano.json) |
+| Generador | [`workflow/build_checkpoint2.py`](workflow/build_checkpoint2.py) + [`workflow/router_prompt.md`](workflow/router_prompt.md) |
+| Respuestas de las pruebas | [`pruebas/respuestas_ckp2/`](pruebas/respuestas_ckp2/) |
+
+- **Manager** (`ckp2ManagerAnden`): Chat → Router de triaje (AI Agent + Structured Output Parser con `enum`)
+  → Switch (`intencion` + `confianza ≥ 0.6`) → Set (contrato mínimo) → Execute Workflow (Wait For
+  Sub-Workflow Completion) → IF `status` → respuesta integrada + Gmail de trazabilidad, o contingencia + alerta.
+- **Worker 1** (`ckp2WorkerLeads1`): el agente del M1 dentro de un Execute Workflow Trigger; memoria por `session_id`.
+- **Worker 2** (`ckp2WorkerEscal1`): LLM redacta el correo al supervisor (JSON validado) → Gmail → ticket `ESC-<id>`.
+- Fallos: salida de error de cada nodo crítico → `{"status":"error", …}`; timeout en *Workflow Settings*
+  de cada Worker (60 s / 45 s).
+- Modelos: `gemini-3.1-flash-lite` (router y W1) y `gemini-3.5-flash-lite` (W2): `gemini-3-flash` tiene
+  un tope gratuito de 20 pedidos por día.
+
+```sh
+./workflow/redeploy_ckp2.sh      # genera, importa y publica los 3 workflows
+URL=http://localhost:5678/webhook/ckp2-manager-mudanzas-anden/chat OUTDIR=respuestas_ckp2 ./workflow/run_tests.sh
+./workflow/inspect_ckp2.sh 6     # resumen de las últimas ejecuciones (Manager y Workers)
+./workflow/export_ckp2.sh        # exporta los 3 JSON a checkpoint2/
+```

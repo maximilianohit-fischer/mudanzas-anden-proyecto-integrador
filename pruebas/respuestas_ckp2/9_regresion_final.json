@@ -1,0 +1,9 @@
+[
+  {
+    "cliente": "Llevo una semana esperando la factura de mi flete y nadie me responde, necesito que me llamen.",
+    "respuesta": {
+      "output": "Transfiero tu caso a una persona del equipo, que te va a escribir a la brevedad. Tu número de caso es ESC-252."
+    },
+    "segundos": 25
+  }
+]
