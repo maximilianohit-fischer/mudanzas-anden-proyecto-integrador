@@ -1,0 +1,16 @@
+[
+  {
+    "cliente": "Buenas, quiero mudarme a Plottier, ¿me ayudan?",
+    "respuesta": {
+      "output": "¡Hola! Para que el equipo de presupuestos pueda contactarte, necesito que me digas tu nombre, un teléfono, desde qué localidad salís y cuántos ambientes tiene la casa. También me sirve saber si hay una fecha estimada, pisos por escalera u objetos pesados como heladera o lavarropas."
+    },
+    "segundos": 2
+  },
+  {
+    "cliente": "Me llamo Martín Sosa, 299 4887766. Salgo de Centenario, es un monoambiente, todavía no tengo fecha.",
+    "respuesta": {
+      "output": "¡Gracias, Martín! Ya registré tu pedido y el área de presupuestos te va a contactar por teléfono dentro de las próximas 24 horas hábiles. Quedamos a disposición por cualquier otra consulta."
+    },
+    "segundos": 5
+  }
+]

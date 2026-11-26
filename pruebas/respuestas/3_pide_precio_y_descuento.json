@@ -1,0 +1,9 @@
+[
+  {
+    "cliente": "¿Cuánto sale un flete de Neuquén a Añelo? Si pago en efectivo, ¿me hacen descuento?",
+    "respuesta": {
+      "output": "Transfiero tu caso a una persona del equipo, que te va a escribir a la brevedad."
+    },
+    "segundos": 5
+  }
+]

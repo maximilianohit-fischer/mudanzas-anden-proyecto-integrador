@@ -1,0 +1,98 @@
+{
+  "id": "ckp1SetupLeads01",
+  "name": "Checkpoint 1 · Setup pestaña Leads (una sola vez)",
+  "nodes": [
+    {
+      "id": "t",
+      "name": "Ejecutar",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "Crear pestaña",
+      "name": "Crear pestaña",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        220,
+        0
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://sheets.googleapis.com/v4/spreadsheets/1ik_rAHfwkKrVANQvyaa8hGfn45V4LDYOMPqJVWi2Q0o:batchUpdate",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleSheetsOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\"requests\": [{\"addSheet\": {\"properties\": {\"title\": \"Leads\"}}}]}",
+        "options": {}
+      },
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "3pBOPdt4kXOEf3ML",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "id": "Escribir encabezados",
+      "name": "Escribir encabezados",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        440,
+        0
+      ],
+      "parameters": {
+        "method": "PUT",
+        "url": "https://sheets.googleapis.com/v4/spreadsheets/1ik_rAHfwkKrVANQvyaa8hGfn45V4LDYOMPqJVWi2Q0o/values/Leads!A1:L1?valueInputOption=RAW",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleSheetsOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\"values\": [[\"fecha_registro\", \"sesion\", \"nombre\", \"telefono\", \"origen\", \"destino\", \"ambientes\", \"fecha_mudanza\", \"pisos_por_escalera\", \"objetos_especiales\", \"calificacion\", \"resumen\"]]}",
+        "options": {}
+      },
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "3pBOPdt4kXOEf3ML",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Ejecutar": {
+      "main": [
+        [
+          {
+            "node": "Crear pestaña",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crear pestaña": {
+      "main": [
+        [
+          {
+            "node": "Escribir encabezados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "active": false,
+  "pinData": {}
+}

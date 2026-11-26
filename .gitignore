@@ -1,0 +1,6 @@
+workflow/config.json
+workflow/build/
+.env
+*.log
+__pycache__/
+*.tmp

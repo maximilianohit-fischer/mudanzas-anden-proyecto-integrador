@@ -1,0 +1,8 @@
+{
+  "sheet_id": "ID_DE_TU_PLANILLA_DE_GOOGLE",
+  "log_email": "supervisor@ejemplo.com",
+  "gemini_model": "models/gemini-3-flash-preview",
+  "cred_sheets": {"id": "CRED_ID", "name": "Google Sheets account"},
+  "cred_gmail": {"id": "CRED_ID", "name": "Gmail account"},
+  "cred_gemini": {"id": "CRED_ID", "name": "Gemini (free)"}
+}
