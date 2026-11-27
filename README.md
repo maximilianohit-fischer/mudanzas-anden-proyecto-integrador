@@ -4,10 +4,12 @@
 
 Repositorio único del proyecto integrador: cada módulo importa el workflow del checkpoint anterior y
 lo extiende. Checkpoints entregados: **M1 · Agente autónomo básico funcional**, **M2 · Orquestación
-multi-agente con sub-workflows** (sección 8) y **M3 · Memoria persistente y resumen agéntico** (sección 9).
+multi-agente con sub-workflows** (sección 8), **M3 · Memoria persistente y resumen agéntico** (sección 9) y
+**M4 · Integraciones con CRM, correo y canal del equipo vía OAuth2** ([sección 10](#10-checkpoint-4-m4--integraciones-avanzadas-gmail--hubspot--slack-vía-oauth2)).
 
 | Entregable | Archivo |
 |---|---|
+| **Workflow exportado de n8n (Checkpoint 4, último)** | [`checkpoint4_maximiliano_herr.json`](checkpoint4_maximiliano_herr.json) · captura de Credentials en la [sección 10](#10-checkpoint-4-m4--integraciones-avanzadas-gmail--hubspot--slack-vía-oauth2) |
 | **Workflow exportado de n8n (Checkpoint 1)** | [`checkpoint1_maximiliano_herr.json`](checkpoint1_maximiliano_herr.json) |
 | System Prompt | [`workflow/system_prompt.md`](workflow/system_prompt.md) |
 | Description de la herramienta | [`workflow/tool_description.md`](workflow/tool_description.md) |
@@ -197,3 +199,97 @@ URL=http://localhost:5678/webhook/ckp3-manager-mudanzas-anden/chat OUTDIR=respue
 ./workflow/inspect_ckp3.sh 6     # resumen de las últimas ejecuciones
 ./workflow/export_ckp3.sh        # exporta los 3 JSON a checkpoint3/
 ```
+
+## 10. Checkpoint 4 (M4) · Integraciones avanzadas: Gmail + HubSpot + Slack vía OAuth2
+
+| Entregable | Archivo |
+|---|---|
+| **Workflow exportado de n8n** | [`checkpoint4_maximiliano_herr.json`](checkpoint4_maximiliano_herr.json) (un solo workflow autocontenido; probado con `n8n import:workflow` en un n8n limpio) |
+| Generador y scripts | [`workflow/build_checkpoint4.py`](workflow/build_checkpoint4.py) · [`redeploy_ckp4.sh`](workflow/redeploy_ckp4.sh) · [`inspect_ckp4.sh`](workflow/inspect_ckp4.sh) · [`export_ckp4.sh`](workflow/export_ckp4.sh) · [`send_test_mail.py`](workflow/send_test_mail.py) |
+| System Prompt de Andi para correo | [`workflow/system_prompt_m4.md`](workflow/system_prompt_m4.md) |
+| App OAuth de HubSpot (developer platform 2026.03) | [`hubspot-app/`](hubspot-app/) |
+| Capturas | [`checkpoint4/capturas/`](checkpoint4/capturas/) |
+
+### Credenciales: las 3 conexiones OAuth2 activas
+
+![Sección Credentials de n8n con las 3 credenciales del proyecto](checkpoint4/capturas/credentials.png)
+
+| Gmail (casilla) | HubSpot (CRM) | Slack (canal del equipo) |
+|---|---|---|
+| ![Gmail conectado](checkpoint4/capturas/cred_gmail.png) | ![HubSpot conectado](checkpoint4/capturas/cred_hubspot.png) | ![Slack conectado](checkpoint4/capturas/cred_slack.png) |
+
+**Mínimo privilegio (pasos 2 y 3).** Cada conector tiene su propia credencial, con los scopes justos para leer
+(pasado) y escribir (futuro):
+
+| Rol | Herramienta | Credencial n8n | Scopes | Lectura / escritura |
+|---|---|---|---|---|
+| Casilla de correo | Gmail | `Gmail · Andi (OAuth2, lectura + borradores)` | `gmail.readonly`, `gmail.compose` (*Custom Scopes*) | Lee los correos entrantes · solo crea borradores |
+| CRM | HubSpot (cuenta gratuita, 3–4 contactos de prueba) | `HubSpot · Andi (OAuth2, solo contactos)` | `oauth`, `crm.objects.contacts.read`, `crm.objects.contacts.write` | Busca por email · crea/actualiza solo `email`, `firstname`, `lastname`, `phone`, `lifecyclestage`, `hs_lead_status` |
+| Canal del equipo | Slack | `Slack · Andi (OAuth2, solo chat:write)` | `chat:write` (user token) | Solo publica en un canal fijo por ID |
+
+- La credencial nativa de n8n para HubSpot pide 13 scopes fijos (deals, companies, forms, tickets…). Se guardó
+  la credencial con `scope` = solo contactos, y la app OAuth de HubSpot ([`hubspot-app/`](hubspot-app/),
+  creada con la CLI porque desde junio de 2026 HubSpot ya no crea apps desde la web) declara exactamente esos 3 scopes.
+- La credencial de Gmail de M1–M3 (que puede enviar) no se tocó: M4 usa una nueva **sin permiso de envío completo**.
+- La memoria (Airtable, M3) sigue con un token limitado a una sola base.
+
+### Workflow
+
+![Workflow del Checkpoint 4](checkpoint4/capturas/workflow.png)
+
+```
+[Gmail Trigger · correos a la casilla +andi, cada 1 min]
+        │
+① [IF · ¿respuesta automática?] ── Sí ─▶ Stop (corta el bucle infinito)
+        │ No
+④ [Set · limpia y valida el payload] → [IF · ¿email válido?] ── No ─▶ Stop (evita el 400)
+        │
+   [Airtable · memoria del remitente (M3)] → [Set · contexto] → [Andi · AI Agent: clasifica, extrae y redacta]
+        │                                                          (error → contingencia)
+   [Set · datos para el CRM]
+        │
+② [HubSpot · Look up por email] → [IF · ¿existe?] ── Sí → [Update]   No → [Create]   (evita el 409)
+        │
+③ [Gmail · Create Draft en el mismo hilo]  (Human-in-the-loop: no hay ningún "send")
+        ├─▶ [Set · aviso mínimo] → [Slack · canal del equipo]
+        └─▶ [Airtable · upsert memoria (Session_ID = email)]
+```
+
+| Nodo de la rúbrica | Cómo está hecho |
+|---|---|
+| **① IF anti auto-reply** | Inmediatamente después del trigger. Condiciones visuales en OR, sin distinguir mayúsculas: asunto contiene *Auto-reply, Automatic reply, Respuesta automática, Out of office, Fuera de la oficina, Undeliverable, Delivery Status Notification, No entregado*; remitente contiene *no-reply@, noreply@, mailer-daemon@, postmaster@*; cabeceras RFC 3834 `Auto-Submitted: auto-…` o `X-Autoreply`. La rama *true* termina en un Stop: no llama a la IA, al CRM ni a Slack. |
+| **② Look up antes del Create** | Conector nativo **HubSpot · Search** (`email EQ`, *Always Output Data*) → IF por `id`. *Sí* → `PATCH /crm/v3/objects/contacts/{id}` (solo completa campos vacíos y pone `hs_lead_status = IN_PROGRESS`); *No* → `POST /crm/v3/objects/contacts` (`lifecyclestage = lead`). Create/Update usan la **misma credencial OAuth2** (*predefined credential type*), porque el nodo nativo solo ofrece *Create or Update* sobre la API v1. |
+| **③ Create Draft (HITL)** | Gmail `draft → create` con `threadId` del correo original y `sendTo` = remitente. Ningún nodo del workflow envía correos. |
+| **④ Set de limpieza** | Deja solo `From` (email extraído de "Nombre <mail>", minúsculas), `FromName`, `Subject` (≤ 200), `BodyText` (texto plano sin el hilo citado, ≤ 3000) e ids de hilo. El IF siguiente corta si el email está vacío o mal formado. Antes de Slack hay un **segundo Set** que deja un único campo `text` (≤ 900 caracteres), sin cuerpo, HTML ni adjuntos (el trigger no descarga binarios). |
+
+**Continuidad con el M3:** la memoria de Airtable ahora usa el email del remitente como `Session_ID`. El
+contexto (`user_name`, `status`, `last_summary`) se inyecta entre `[INICIO DE CONTEXTO COMPARTIDO]` y
+`[FIN DEL CONTEXTO COMPARTIDO]`, y al final se hace *upsert* de nombre, resumen JSON, estado del caso,
+datos clave y contador.
+
+### Test de regresión (paso 9, ejecuciones reales del 26/11/2026)
+
+| # | Correo | Recorrido | Resultado |
+|---|---|---|---|
+| 1 | "Respuesta automática: Fuera de la oficina" | IF ① → **Stop** | Sin IA, sin CRM, sin borrador ni aviso: se corta el bucle. |
+| 2 | Pedido de mudanza completo (Lucía Paredes) | Look up encontró el contacto → **Update** | Teléfono completado, `IN_PROGRESS`, borrador en el hilo, memoria `Mensajes = 1`. |
+| 3 | "Flete a Plottier" desde otra casilla (Martín Gómez), contacto inexistente | Look up vacío → **Create** | Contacto nuevo con el nombre de la firma, no el del remitente. |
+| 4 | Consulta de precio y descuento | `CONSULTA_COMERCIAL` → Update | Borrador sin precios; aviso en Slack (`ok: true`). |
+| 5 | Reclamo por una mesa rota | `RECLAMO` → Update | Borrador derivando a una persona; aviso en Slack; memoria `Estado del caso = escalado`, `Mensajes = 4`. |
+
+Hallazgo real: la cuenta de HubSpot tiene conectada la casilla, y HubSpot **crea contactos solo** con cada
+correo recibido (origen `EMAIL_INTEGRATION`), segundos antes de que corra Andi. Sin el Look up, el Create
+habría chocado con ese contacto (**409**). Es el argumento de la "fuente única de verdad".
+
+![Ejecución 334: recorrido completo, todos los nodos en verde](checkpoint4/capturas/ejecucion.png)
+
+```sh
+./workflow/redeploy_ckp4.sh --publish   # genera, importa (conserva el estado del Gmail Trigger), publica y reinicia n8n
+python3 workflow/send_test_mail.py "Asunto" "Cuerpo"   # manda un correo de prueba a la casilla +andi
+./workflow/inspect_ckp4.sh 3            # resumen de las últimas ejecuciones
+./workflow/export_ckp4.sh               # exporta checkpoint4_maximiliano_herr.json (casilla reemplazada por una de ejemplo)
+```
+
+**Para importarlo:** *Workflows → Import from File*, crear las tres credenciales OAuth2 (y las de Gemini y
+Airtable del M3), cambiar la casilla del filtro del trigger (`to:casilla+andi@ejemplo.com`) y el ID del canal
+de Slack.

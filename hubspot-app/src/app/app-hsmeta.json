@@ -1,0 +1,22 @@
+{
+  "uid": "andi_mudanzas_anden_n8n",
+  "type": "app",
+  "config": {
+    "name": "Andi n8n Mudanzas Anden",
+    "description": "Conector OAuth2 de n8n para el agente Andi: busca, crea y actualiza contactos. Solo scopes de contactos (minimo privilegio).",
+    "distribution": "private",
+    "auth": {
+      "type": "oauth",
+      "redirectUrls": ["http://localhost:5678/rest/oauth2-credential/callback"],
+      "requiredScopes": ["oauth", "crm.objects.contacts.read", "crm.objects.contacts.write"],
+      "optionalScopes": [],
+      "conditionallyRequiredScopes": []
+    },
+    "permittedUrls": { "fetch": ["https://api.hubapi.com"], "iframe": [], "img": [] },
+    "support": {
+      "supportEmail": "soporte@ejemplo.com",
+      "documentationUrl": "https://github.com/maximilianohit-fischer/mudanzas-anden-proyecto-integrador",
+      "supportUrl": "https://github.com/maximilianohit-fischer/mudanzas-anden-proyecto-integrador"
+    }
+  }
+}

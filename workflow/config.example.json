@@ -23,5 +23,20 @@
   },
   "airtable_base": "appXXXXXXXXXXXXXX",
   "airtable_table": "tblXXXXXXXXXXXXXX",
-  "summary_model": "models/gemini-3.1-flash-lite"
+  "summary_model": "models/gemini-3.1-flash-lite",
+  "cred_gmail_ckp4": {
+    "id": "ckp4GmailOAuth01",
+    "name": "Gmail · Andi (OAuth2, lectura + borradores)"
+  },
+  "cred_slack": {
+    "id": "ckp4SlackOAuth01",
+    "name": "Slack · Andi (OAuth2, solo chat:write)"
+  },
+  "cred_hubspot": {
+    "id": "ckp4HubspotOAu01",
+    "name": "HubSpot · Andi (OAuth2, solo contactos)"
+  },
+  "andi_inbox": "casilla+andi@ejemplo.com",
+  "slack_channel": "C_PENDIENTE",
+  "agent_model_m4": "models/gemini-3.5-flash-lite"
 }
