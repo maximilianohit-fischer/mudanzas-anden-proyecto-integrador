@@ -137,7 +137,7 @@ AUTO_SENDERS = ["no-reply@", "noreply@", "mailer-daemon@", "postmaster@"]
 auto_conditions = ([cond(SUBJ, "contains", s) for s in AUTO_SUBJECTS]
                    + [cond(FROM, "contains", s) for s in AUTO_SENDERS]
                    # Cabeceras RFC 3834: los autoresponders marcan Auto-Submitted / X-Autoreply
-                   + [cond("={{ $json.headers?.['auto-submitted'] || '' }}", "contains", "auto-"),
+                   + [cond("={{ $json.headers?.['auto-submitted'] || '' }}", "contains", ": auto-"),
                       cond("={{ $json.headers?.['x-autoreply'] || $json.headers?.['x-autorespond'] || '' }}",
                            "notEmpty")])
 
@@ -386,8 +386,9 @@ nodes = [
     sticky("Nota · ③ HITL", [2860, 560], 560, 200,
            "## ③ Create Draft · Human-in-the-loop\n"
            "Gmail **solo crea un borrador** en el mismo hilo (`threadId`), dirigido al remitente. **No hay ningún nodo "
-           "\"send\"** en este workflow: una persona revisa y envía. La credencial de Gmail ni siquiera pide el scope de "
-           "envío completo (`gmail.readonly` + `gmail.compose`).", color=6),
+           "\"send\"** en este workflow: una persona revisa y envía. El HITL lo garantiza el diseño (el único nodo Gmail de "
+           "salida es `draft → create`); la credencial usa el scope más chico que permite crear borradores "
+           "(`gmail.compose`) + `gmail.readonly`, sin `mail.google.com`, `gmail.modify` ni labels.", color=6),
     sticky("Nota · Slack", [3100, -420], 560, 220,
            "## Set mínimo antes de Slack (paso 8)\n"
            "El aviso lleva **un solo campo** `text` (≤ 900 caracteres): intención, remitente, resumen de una línea, qué "

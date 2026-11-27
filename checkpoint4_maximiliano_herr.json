@@ -2,7 +2,7 @@
   "name": "Checkpoint 4 · Andi conectado a Gmail, HubSpot y Slack (Mudanzas Andén)",
   "nodes": [
     {
-      "id": "d8c368cb-9b19-49b2-9e84-80d9aa536704",
+      "id": "bf45c672-01e9-4217-96d5-2e83d9967d42",
       "name": "Gmail Trigger · Correo entrante (casilla +andi)",
       "type": "n8n-nodes-base.gmailTrigger",
       "typeVersion": 1.3,
@@ -39,7 +39,7 @@
       }
     },
     {
-      "id": "3aa8b173-c55e-4121-aa3b-1be562b937d5",
+      "id": "1d10e43e-bcbb-47df-94ad-2464c68136b5",
       "name": "IF · ¿Es respuesta automática? (anti-bucle)",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -57,7 +57,7 @@
           },
           "conditions": [
             {
-              "id": "727b40c0-77bb-4bac-9e97-be422da25288",
+              "id": "8599c7de-25a5-46dc-9618-4adea7f7bb78",
               "leftValue": "={{ $json.subject || '' }}",
               "rightValue": "Auto-reply",
               "operator": {
@@ -66,7 +66,7 @@
               }
             },
             {
-              "id": "0c28f0b4-1660-4cb4-a74b-8596ca84d8c9",
+              "id": "92834ae7-b7f2-4a63-aa0f-cf24028db7ee",
               "leftValue": "={{ $json.subject || '' }}",
               "rightValue": "Automatic reply",
               "operator": {
@@ -75,7 +75,7 @@
               }
             },
             {
-              "id": "3136634b-7af7-415e-af9a-31fb76418d8a",
+              "id": "e09c3afa-d651-491b-901d-70b493f40a3d",
               "leftValue": "={{ $json.subject || '' }}",
               "rightValue": "Respuesta automática",
               "operator": {
@@ -84,7 +84,7 @@
               }
             },
             {
-              "id": "f091d057-922a-4a55-80bd-c92185e5e357",
+              "id": "a7032b13-e926-4de3-bf28-4e129a2e7cbd",
               "leftValue": "={{ $json.subject || '' }}",
               "rightValue": "Out of office",
               "operator": {
@@ -93,7 +93,7 @@
               }
             },
             {
-              "id": "6ed06b7f-0501-48ab-8519-1feb44dfae14",
+              "id": "acf079d3-8d21-4800-8dfc-0ee373f38fc0",
               "leftValue": "={{ $json.subject || '' }}",
               "rightValue": "Fuera de la oficina",
               "operator": {
@@ -102,7 +102,7 @@
               }
             },
             {
-              "id": "143033f5-0e2b-42da-884e-615521b51173",
+              "id": "4a3054e4-8cc9-41fe-aa70-cde1e3e8ea9e",
               "leftValue": "={{ $json.subject || '' }}",
               "rightValue": "Undeliverable",
               "operator": {
@@ -111,7 +111,7 @@
               }
             },
             {
-              "id": "6de8301d-92ec-4550-a3e1-ce70c07c9306",
+              "id": "d35a3e53-2e48-46d2-b8fb-93aa342bd1e5",
               "leftValue": "={{ $json.subject || '' }}",
               "rightValue": "Delivery Status Notification",
               "operator": {
@@ -120,7 +120,7 @@
               }
             },
             {
-              "id": "cc81e4be-86e3-4936-b247-4e506964053b",
+              "id": "c24dd69b-67be-4177-859e-48aef45b6a5f",
               "leftValue": "={{ $json.subject || '' }}",
               "rightValue": "No entregado",
               "operator": {
@@ -129,7 +129,7 @@
               }
             },
             {
-              "id": "5f5500ea-6af7-4827-b90e-c2b97c481e0f",
+              "id": "2136e926-99c3-4958-8716-0c011b900783",
               "leftValue": "={{ $json.from?.value?.[0]?.address || $json.from?.text || '' }}",
               "rightValue": "no-reply@",
               "operator": {
@@ -138,7 +138,7 @@
               }
             },
             {
-              "id": "0b8df961-f354-42a6-836b-314a86a0526e",
+              "id": "566336dc-cf8d-42b2-9e39-56265bc07e5b",
               "leftValue": "={{ $json.from?.value?.[0]?.address || $json.from?.text || '' }}",
               "rightValue": "noreply@",
               "operator": {
@@ -147,7 +147,7 @@
               }
             },
             {
-              "id": "06e57ed6-1f01-4dd3-b62e-871e2a443c45",
+              "id": "12b80749-770a-45bd-be5d-2f44815db354",
               "leftValue": "={{ $json.from?.value?.[0]?.address || $json.from?.text || '' }}",
               "rightValue": "mailer-daemon@",
               "operator": {
@@ -156,7 +156,7 @@
               }
             },
             {
-              "id": "da209a42-d0eb-4822-b58d-fdb0a97aaced",
+              "id": "63feaa39-a0f5-48b2-92e0-d35cd652f39b",
               "leftValue": "={{ $json.from?.value?.[0]?.address || $json.from?.text || '' }}",
               "rightValue": "postmaster@",
               "operator": {
@@ -165,16 +165,16 @@
               }
             },
             {
-              "id": "4a65c531-0312-4eb7-a443-e9fae1c70760",
+              "id": "cf63a20c-e00f-47fc-b8ab-b10fccc24ec3",
               "leftValue": "={{ $json.headers?.['auto-submitted'] || '' }}",
-              "rightValue": "auto-",
+              "rightValue": ": auto-",
               "operator": {
                 "type": "string",
                 "operation": "contains"
               }
             },
             {
-              "id": "724107d3-3ec4-4631-8c43-fc0a44c1c446",
+              "id": "9a4c9d93-98c7-46bf-8483-74b87a6fa2b4",
               "leftValue": "={{ $json.headers?.['x-autoreply'] || $json.headers?.['x-autorespond'] || '' }}",
               "rightValue": "",
               "operator": {
@@ -190,7 +190,7 @@
       }
     },
     {
-      "id": "dd89e4ca-dfc9-447c-9ab4-ee1c7e12d253",
+      "id": "87f2364e-5044-4af2-8e15-b290bfe4c3e9",
       "name": "Stop · Auto-reply descartado (corta el bucle)",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
@@ -201,7 +201,7 @@
       "parameters": {}
     },
     {
-      "id": "ada9ef49-ee65-4774-a2c7-8b9525fd4a23",
+      "id": "1707cd18-4425-4e01-accf-682c56ab7293",
       "name": "Set · Limpia y valida el payload (From, Subject, BodyText)",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -213,43 +213,43 @@
         "assignments": {
           "assignments": [
             {
-              "id": "147c0259-44b6-42cb-803d-1345cb76ca46",
+              "id": "27160855-5e42-4065-af45-5e58edf7c92c",
               "name": "From",
               "value": "={{ ($json.from?.value?.[0]?.address || '').trim().toLowerCase() }}",
               "type": "string"
             },
             {
-              "id": "ddb3eb59-621e-40e4-bd9b-305ad57dfeb6",
+              "id": "faf511c8-5bce-42c5-928d-127e60f68d36",
               "name": "FromName",
               "value": "={{ ($json.from?.value?.[0]?.name || '').trim().slice(0, 80) }}",
               "type": "string"
             },
             {
-              "id": "429c8e48-4c68-4ea6-8754-207c58030e26",
+              "id": "2f67e63d-071c-45b8-87b0-f096f94c0bc3",
               "name": "Subject",
               "value": "={{ ($json.subject || '(sin asunto)').trim().slice(0, 200) }}",
               "type": "string"
             },
             {
-              "id": "5d669e3e-3a35-466d-bd49-fb2cb68d1767",
+              "id": "9e721f42-29e1-47be-9ba6-dc43be42d440",
               "name": "BodyText",
               "value": "={{ (($json.text || '').split(/\\n(El .{0,120} escribió:|On .{0,120} wrote:)/)[0].split('\\n').filter(l => !l.trim().startsWith('>')).join('\\n').replace(/\\n{3,}/g, '\\n\\n').trim()).slice(0, 3000) }}",
               "type": "string"
             },
             {
-              "id": "3f7dece9-8ebf-4cb2-b04f-e61996e492d1",
+              "id": "796e7ef8-56e8-4af6-b6e0-91bd4042e2f3",
               "name": "thread_id",
               "value": "={{ $json.threadId || '' }}",
               "type": "string"
             },
             {
-              "id": "0ad9c9b5-d2cc-474d-9ea6-64f84463cca7",
+              "id": "3acbe624-06af-41dd-aee7-72b3fd662a2d",
               "name": "message_id",
               "value": "={{ $json.id || '' }}",
               "type": "string"
             },
             {
-              "id": "d2328925-7ed6-4665-a8d0-a7dcbff83751",
+              "id": "45d43518-4f54-4517-9802-01364bfd6c21",
               "name": "email_valido",
               "value": "={{ /^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/.test(($json.from?.value?.[0]?.address || '').trim()) }}",
               "type": "boolean"
@@ -260,7 +260,7 @@
       }
     },
     {
-      "id": "2891e9ef-2437-406d-a614-bce6245f15d2",
+      "id": "6a123d98-2b9d-43ba-adcd-b55b2d206793",
       "name": "IF · ¿Email del remitente válido? (evita el 400)",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -278,7 +278,7 @@
           },
           "conditions": [
             {
-              "id": "c4269a6d-0b58-4977-a061-d89a6e60ab1b",
+              "id": "4dd1ea06-0b5d-4902-b54b-c4ea4186fa4c",
               "leftValue": "={{ $json.email_valido }}",
               "rightValue": "",
               "operator": {
@@ -288,7 +288,7 @@
               }
             },
             {
-              "id": "28cf1325-7526-475c-96e3-09151dcf2fc5",
+              "id": "57d02cc8-31ec-4674-b0bb-aeec0bb1ce65",
               "leftValue": "={{ $json.From }}",
               "rightValue": "",
               "operator": {
@@ -304,7 +304,7 @@
       }
     },
     {
-      "id": "e5e97622-642c-46dc-a05a-bd0aea91aea1",
+      "id": "4e67781e-0f32-491b-846b-0cbf7dea795d",
       "name": "Stop · Payload inválido (no se llama a ninguna API)",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
@@ -315,7 +315,7 @@
       "parameters": {}
     },
     {
-      "id": "3c1a11b2-2115-434a-b4fe-44b49e4c4c2b",
+      "id": "5b96b413-1752-46a5-81ae-f90cac0d493a",
       "name": "Airtable · Buscar memoria del remitente (M3)",
       "type": "n8n-nodes-base.airtable",
       "typeVersion": 2.1,
@@ -354,7 +354,7 @@
       "alwaysOutputData": true
     },
     {
-      "id": "676dadcd-b58b-401c-80cd-9bdf1e62e392",
+      "id": "d756b993-7f41-43d6-93f8-1b1b95a92ffe",
       "name": "Set · Contexto recuperado (user_name, status, last_summary)",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -366,25 +366,25 @@
         "assignments": {
           "assignments": [
             {
-              "id": "bfeb5f59-71e9-46b3-9b9d-36e9b00bdb1c",
+              "id": "3b1c7194-eef9-41e2-843a-c5369150a85c",
               "name": "user_name",
               "value": "={{ $json['Nombre del usuario'] || $('Set · Limpia y valida el payload (From, Subject, BodyText)').item.json.FromName || 'remitente que todavía no dio su nombre' }}",
               "type": "string"
             },
             {
-              "id": "e99039f4-5787-4a8d-9385-dfe4ab1ca850",
+              "id": "30dfca50-870c-4079-a854-2ed6232498f0",
               "name": "status",
               "value": "={{ $json['Estado del caso'] || 'nuevo' }}",
               "type": "string"
             },
             {
-              "id": "432dde2a-26fc-4510-b5e2-68739bf056f8",
+              "id": "9f7cb199-7098-48fe-ba43-da245e6467b8",
               "name": "last_summary",
               "value": "={{ (() => { const r = $json['Resumen consolidado']; if (!$json.id) return 'remitente nuevo: no hay correos anteriores'; try { const o = JSON.parse(r); return o.asunto_principal + '. Puntos clave: ' + o.puntos_clave.join('; ') + '. Acción requerida: ' + o.accion_requerida; } catch (e) { return r || 'todavía no hay un resumen consolidado'; } })() }}",
               "type": "string"
             },
             {
-              "id": "2c2ab375-fc67-433a-8a96-4d7b38dac58a",
+              "id": "22b96353-191f-4be3-8709-dfe2010b8f6e",
               "name": "mensajes",
               "value": "={{ Number($json['Mensajes'] || 0) }}",
               "type": "number"
@@ -395,7 +395,7 @@
       }
     },
     {
-      "id": "49bd79f3-7732-4862-a9fb-a3f41cf5feba",
+      "id": "2cf60d2d-420a-4862-96e1-9934998b6909",
       "name": "Andi · AI Agent (clasifica, extrae y redacta)",
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.7,
@@ -419,7 +419,7 @@
       "waitBetweenTries": 5000
     },
     {
-      "id": "106cedc4-5b54-4d1b-ba84-25bd470264c4",
+      "id": "2cda092a-b163-40cf-8bb0-ef1b230cbfca",
       "name": "Google Gemini Chat Model",
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1.2,
@@ -445,7 +445,7 @@
       "waitBetweenTries": 5000
     },
     {
-      "id": "39b9599a-3867-42f1-a29d-390eac1211ce",
+      "id": "59bfe190-f449-4dc1-a31f-2048270f4c36",
       "name": "Formato de salida (JSON)",
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.3,
@@ -459,7 +459,7 @@
       }
     },
     {
-      "id": "0a5657aa-09b2-4fce-acc1-3b007d045380",
+      "id": "33724ee7-25e4-4d81-b738-326063a4d37c",
       "name": "Set · Contingencia (IA no disponible)",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -471,7 +471,7 @@
         "assignments": {
           "assignments": [
             {
-              "id": "ae5a2f21-e711-41c0-8fb7-65fd4c35d211",
+              "id": "d496e3d5-3721-4044-b426-6148e7207f57",
               "name": "output",
               "value": "={{ { intencion: 'DUDOSA', nombre: '', apellido: '', telefono: '', calificacion: 'no_aplica', datos_pedido: { origen: 'no informado', destino: 'no informado', ambientes: 'no informado', fecha_mudanza: 'no informado', objetos_especiales: 'no informado' }, resumen: { asunto_principal: 'Correo sin procesar (falla del modelo de IA)', puntos_clave: ['Revisar el correo original en la casilla'], accion_requerida: 'Responder a mano' }, respuesta_borrador: \"Gracias por escribirnos. Una persona del equipo va a revisar tu caso y te va a responder a la brevedad.\\n\\nAndi · Mudanzas Andén\" } }}",
               "type": "object"
@@ -482,7 +482,7 @@
       }
     },
     {
-      "id": "51387439-df3f-4c76-bff0-a345bbc29fe3",
+      "id": "392f7ec8-7455-43e0-a33e-3fd3170afeb4",
       "name": "Set · Datos para el CRM (solo campos necesarios)",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -494,91 +494,91 @@
         "assignments": {
           "assignments": [
             {
-              "id": "3b3e83d0-c1a2-4556-9d89-82f1d16db997",
+              "id": "7bc462e5-6b8e-41b1-ba03-ca6ebe4e7718",
               "name": "email",
               "value": "={{ $('Set · Limpia y valida el payload (From, Subject, BodyText)').item.json.From }}",
               "type": "string"
             },
             {
-              "id": "d3f06e2e-cd5a-4a02-889e-23dca73cc481",
+              "id": "77621963-5741-4c15-9f0c-246e48cfee72",
               "name": "firstname",
               "value": "={{ ($json.output.nombre || $('Set · Limpia y valida el payload (From, Subject, BodyText)').item.json.FromName.split(' ')[0] || '').slice(0, 60) }}",
               "type": "string"
             },
             {
-              "id": "120cac4f-7421-40bf-b7b1-51b405a32935",
+              "id": "3d3946b1-9c25-433b-8ec2-5390c70524e6",
               "name": "lastname",
               "value": "={{ ($json.output.apellido || $('Set · Limpia y valida el payload (From, Subject, BodyText)').item.json.FromName.split(' ').slice(1).join(' ') || '').slice(0, 60) }}",
               "type": "string"
             },
             {
-              "id": "c47d2298-37c6-43ff-a705-00617b1c884a",
+              "id": "866bb210-2ab0-469e-b162-751a2baff93c",
               "name": "phone",
               "value": "={{ (($json.output.telefono || '').toLowerCase() === 'no informado' ? '' : $json.output.telefono || '').replace(/[^0-9+ ]/g, '').trim().slice(0, 25) }}",
               "type": "string"
             },
             {
-              "id": "0bdfdcab-bd06-43d7-b19a-da795e6a6209",
+              "id": "76f975cd-0bbf-47a2-a2aa-0cdc26d27f27",
               "name": "intencion",
               "value": "={{ $json.output.intencion }}",
               "type": "string"
             },
             {
-              "id": "a3ab920c-07a0-4184-88de-d5e0a3978e7e",
+              "id": "57a21157-94e5-4aec-9508-6918c5b57d8a",
               "name": "calificacion",
               "value": "={{ $json.output.calificacion }}",
               "type": "string"
             },
             {
-              "id": "40301f94-c184-49af-89c3-94701531297b",
+              "id": "b441b1a3-4550-4719-b8da-bf6f55847870",
               "name": "resumen_json",
               "value": "={{ JSON.stringify($json.output.resumen) }}",
               "type": "string"
             },
             {
-              "id": "9a3ec9da-0c19-4d2a-97e7-5b355c4af16e",
+              "id": "98ea6693-0b6d-49a8-90c8-62a64f015ffa",
               "name": "asunto_principal",
               "value": "={{ ($json.output.resumen?.asunto_principal || '').slice(0, 200) }}",
               "type": "string"
             },
             {
-              "id": "9eaff2d3-b5f1-46dd-9f07-8220ebcb8d96",
+              "id": "c8672352-37d6-43a9-a895-8c0c11091f72",
               "name": "datos_pedido",
               "value": "={{ JSON.stringify($json.output.datos_pedido || {}) }}",
               "type": "string"
             },
             {
-              "id": "763f871e-a23f-4f0e-9bc4-90b3e131e0ee",
+              "id": "9b9d8e7d-f125-49d0-bcd1-85e972dc0d14",
               "name": "lead_completo",
               "value": "={{ $json.output.intencion === 'PEDIDO_MUDANZA' && !!$json.output.telefono && !['', 'no informado'].includes(($json.output.datos_pedido?.origen || '').toLowerCase()) && !['', 'no informado'].includes(($json.output.datos_pedido?.destino || '').toLowerCase()) }}",
               "type": "boolean"
             },
             {
-              "id": "cdfed26f-8251-4808-a168-ffdccfa09dfd",
+              "id": "1af067d2-5b43-43e4-a691-c6ffb062f50a",
               "name": "estado",
               "value": "={{ (() => { const o = $json.output || {}; const p = o.datos_pedido || {}; const ok = v => !!v && !['', 'no informado'].includes(String(v).toLowerCase()); const completo = ok(o.telefono) && ok(p.origen) && ok(p.destino); return ({ PEDIDO_MUDANZA: completo ? 'lead registrado' : 'en curso', CONSULTA_COMERCIAL: 'escalado', RECLAMO: 'escalado', DUDOSA: 'escalado', FUERA_DE_AMBITO: 'fuera de ámbito' })[o.intencion] || 'en curso'; })() }}",
               "type": "string"
             },
             {
-              "id": "3ffce5ab-7162-424d-8c27-2e5786e125d1",
+              "id": "e4f0937c-7570-4734-ae61-18cefc2ffd69",
               "name": "respuesta_borrador",
               "value": "={{ $json.output.respuesta_borrador }}",
               "type": "string"
             },
             {
-              "id": "d8189068-2070-41ee-a183-974597c93e1e",
+              "id": "d833242b-5815-413f-9639-a4e55bcdf3ed",
               "name": "Subject",
               "value": "={{ $('Set · Limpia y valida el payload (From, Subject, BodyText)').item.json.Subject }}",
               "type": "string"
             },
             {
-              "id": "007a1692-3f6e-4d30-bd08-32779b140a83",
+              "id": "07287eb1-f917-4818-8822-777a60e1821a",
               "name": "thread_id",
               "value": "={{ $('Set · Limpia y valida el payload (From, Subject, BodyText)').item.json.thread_id }}",
               "type": "string"
             },
             {
-              "id": "7efc0020-e26e-4dca-890d-9ba7159c5c7d",
+              "id": "ec7aef3c-d155-46ad-b067-9564ae68c560",
               "name": "mensajes_previos",
               "value": "={{ $('Set · Contexto recuperado (user_name, status, last_summary)').item.json.mensajes }}",
               "type": "number"
@@ -589,7 +589,7 @@
       }
     },
     {
-      "id": "cfd1a407-7290-4510-adcf-2c2ce946cdf1",
+      "id": "921b96bb-c242-4812-a102-adfb85d4236e",
       "name": "HubSpot · Look up contacto por email",
       "type": "n8n-nodes-base.hubspot",
       "typeVersion": 2.2,
@@ -639,7 +639,7 @@
       "alwaysOutputData": true
     },
     {
-      "id": "2e59ef56-d1a2-4e1f-8dd1-1b68d49ee420",
+      "id": "1c5648b2-df3f-4391-8284-f0db5451c08c",
       "name": "IF · ¿El contacto ya existe en el CRM?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -657,7 +657,7 @@
           },
           "conditions": [
             {
-              "id": "4dae878d-b618-4070-81bb-8eaea50056ab",
+              "id": "e16e82c1-b221-40d2-a814-e90e08578122",
               "leftValue": "={{ $json.id }}",
               "rightValue": "",
               "operator": {
@@ -673,7 +673,7 @@
       }
     },
     {
-      "id": "1c95bf13-feed-417d-b546-df815868767e",
+      "id": "ffadd4dd-4bd6-442b-94e1-4c6c8fb8c4ef",
       "name": "HubSpot · Update contacto existente",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -703,7 +703,7 @@
       "waitBetweenTries": 3000
     },
     {
-      "id": "aa5c73fb-2639-45b1-9463-070bd9b58212",
+      "id": "842277c7-269d-4cbb-9e3d-c2a1767bd452",
       "name": "HubSpot · Create contacto nuevo",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -733,7 +733,7 @@
       "waitBetweenTries": 3000
     },
     {
-      "id": "8f069ad5-bf5d-4582-a77e-467b2c642565",
+      "id": "e9aaac42-7c8e-4862-a3dd-4bddbdb6ab76",
       "name": "Gmail · Create Draft (Human-in-the-loop)",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
@@ -760,7 +760,7 @@
       }
     },
     {
-      "id": "9743700e-c273-4ba1-9f55-20e216e63af1",
+      "id": "69417319-3893-4046-9df4-427d7e561fe5",
       "name": "Set · Aviso mínimo para Slack (sin payload pesado)",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -772,7 +772,7 @@
         "assignments": {
           "assignments": [
             {
-              "id": "09096ec7-f5a6-4797-a84c-c29a1008023b",
+              "id": "712a7e8f-44b9-4c0d-be59-60bb96cce0df",
               "name": "text",
               "value": "={{ ('📨 *Nuevo correo para Andi* · ' + $('Set · Datos para el CRM (solo campos necesarios)').item.json.intencion + ' · ' + $('Set · Datos para el CRM (solo campos necesarios)').item.json.calificacion + '\\n*De:* ' + ($('Set · Datos para el CRM (solo campos necesarios)').item.json.firstname + ' ' + $('Set · Datos para el CRM (solo campos necesarios)').item.json.lastname).trim() + ' <' + $('Set · Datos para el CRM (solo campos necesarios)').item.json.email + '>' + '\\n*Resumen:* ' + $('Set · Datos para el CRM (solo campos necesarios)').item.json.asunto_principal + '\\n*CRM (HubSpot):* ' + ($('HubSpot · Look up contacto por email').item.json.id ? 'contacto existente actualizado (id ' + $('HubSpot · Look up contacto por email').item.json.id + ')' : 'contacto nuevo creado') + '\\n*Borrador:* listo en Gmail para revisar y enviar (no se envió nada).').slice(0, 900) }}",
               "type": "string"
@@ -783,7 +783,7 @@
       }
     },
     {
-      "id": "ff506723-eafe-4531-a5ba-b2a425b351d3",
+      "id": "13a81da5-4e68-41d0-a675-a75d1f23bc0a",
       "name": "Slack · Aviso al canal del equipo",
       "type": "n8n-nodes-base.slack",
       "typeVersion": 2.3,
@@ -813,10 +813,10 @@
         }
       },
       "onError": "continueRegularOutput",
-      "webhookId": "114af667-c33d-4afb-98ff-1122852aba3b"
+      "webhookId": "a2a53808-7f7b-4285-9c72-1b8858440ad2"
     },
     {
-      "id": "834b9c71-e232-4504-a7d7-e46bcfaaba74",
+      "id": "f2c50c4e-2829-4d99-a946-02425f184112",
       "name": "Airtable · Upsert memoria (Session_ID = email)",
       "type": "n8n-nodes-base.airtable",
       "typeVersion": 2.1,
@@ -949,7 +949,7 @@
       "waitBetweenTries": 2000
     },
     {
-      "id": "6fd0f425-3d57-4d55-b37a-90fac259308e",
+      "id": "80021adb-4fd7-468a-b368-2fbbb85e5cf9",
       "name": "Nota · ① Anti auto-reply",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -965,7 +965,7 @@
       }
     },
     {
-      "id": "73d668c8-77a3-40b8-bf33-b585a7f52781",
+      "id": "4d2f1850-f3ec-421d-831a-cbd8386b20ff",
       "name": "Nota · ④ Limpieza",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -981,7 +981,7 @@
       }
     },
     {
-      "id": "9e825b0e-74d8-490e-aa9b-a64d84a5f783",
+      "id": "56e85167-f940-46ec-9f89-faf3c1084f0a",
       "name": "Nota · Memoria M3 + Agente",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -997,7 +997,7 @@
       }
     },
     {
-      "id": "958796e9-b157-4e89-b9cb-60a9303c166c",
+      "id": "3e11bbba-7bc2-4ec0-bc0d-c40ce8f5956a",
       "name": "Nota · ② Look up",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -1013,7 +1013,7 @@
       }
     },
     {
-      "id": "57ad77ef-9c94-42ef-b14e-f0f31519cfb3",
+      "id": "c44b1deb-8107-4710-a1cc-7d914a2b1b9e",
       "name": "Nota · ③ HITL",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -1022,14 +1022,14 @@
         560
       ],
       "parameters": {
-        "content": "## ③ Create Draft · Human-in-the-loop\nGmail **solo crea un borrador** en el mismo hilo (`threadId`), dirigido al remitente. **No hay ningún nodo \"send\"** en este workflow: una persona revisa y envía. La credencial de Gmail ni siquiera pide el scope de envío completo (`gmail.readonly` + `gmail.compose`).",
+        "content": "## ③ Create Draft · Human-in-the-loop\nGmail **solo crea un borrador** en el mismo hilo (`threadId`), dirigido al remitente. **No hay ningún nodo \"send\"** en este workflow: una persona revisa y envía. El HITL lo garantiza el diseño (el único nodo Gmail de salida es `draft → create`); la credencial usa el scope más chico que permite crear borradores (`gmail.compose`) + `gmail.readonly`, sin `mail.google.com`, `gmail.modify` ni labels.",
         "width": 560,
         "height": 200,
         "color": 6
       }
     },
     {
-      "id": "b98b1cb9-86b0-4ef1-8ddb-0bec61a2a4aa",
+      "id": "70f8f3ef-9b33-4504-85f7-1f55bd6394cc",
       "name": "Nota · Slack",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -1045,7 +1045,7 @@
       }
     },
     {
-      "id": "05fef408-92c4-44bc-8ad2-7754640b1f95",
+      "id": "23716f1b-0d06-48df-9178-9f46d65ad900",
       "name": "Nota · Mínimo privilegio",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -1292,7 +1292,7 @@
     "saveDataErrorExecution": "all",
     "executionTimeout": 120
   },
-  "versionId": "3073dc71-182f-4a1c-a683-49efcccca65a",
+  "versionId": "27673b49-115d-410c-9f1e-75e5b1189c51",
   "meta": null,
   "id": "ckp4AndiIntegra1",
   "tags": []

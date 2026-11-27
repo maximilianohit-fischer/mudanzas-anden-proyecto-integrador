@@ -224,13 +224,15 @@ URL=http://localhost:5678/webhook/ckp3-manager-mudanzas-anden/chat OUTDIR=respue
 | Rol | Herramienta | Credencial n8n | Scopes | Lectura / escritura |
 |---|---|---|---|---|
 | Casilla de correo | Gmail | `Gmail · Andi (OAuth2, lectura + borradores)` | `gmail.readonly`, `gmail.compose` (*Custom Scopes*) | Lee los correos entrantes · solo crea borradores |
-| CRM | HubSpot (cuenta gratuita, 3–4 contactos de prueba) | `HubSpot · Andi (OAuth2, solo contactos)` | `oauth`, `crm.objects.contacts.read`, `crm.objects.contacts.write` | Busca por email · crea/actualiza solo `email`, `firstname`, `lastname`, `phone`, `lifecyclestage`, `hs_lead_status` |
+| CRM | HubSpot (cuenta gratuita con contactos de prueba) | `HubSpot · Andi (OAuth2, solo contactos)` | `oauth`, `crm.objects.contacts.read`, `crm.objects.contacts.write` | Busca por email · crea/actualiza solo `email`, `firstname`, `lastname`, `phone`, `lifecyclestage`, `hs_lead_status` |
 | Canal del equipo | Slack | `Slack · Andi (OAuth2, solo chat:write)` | `chat:write` (user token) | Solo publica en un canal fijo por ID |
 
 - La credencial nativa de n8n para HubSpot pide 13 scopes fijos (deals, companies, forms, tickets…). Se guardó
   la credencial con `scope` = solo contactos, y la app OAuth de HubSpot ([`hubspot-app/`](hubspot-app/),
   creada con la CLI porque desde junio de 2026 HubSpot ya no crea apps desde la web) declara exactamente esos 3 scopes.
-- La credencial de Gmail de M1–M3 (que puede enviar) no se tocó: M4 usa una nueva **sin permiso de envío completo**.
+- La credencial de Gmail de M1–M3 no se tocó. M4 usa una nueva con el scope más chico que permite crear borradores
+  (`gmail.compose`, que técnicamente también habilita el envío) + `gmail.readonly`, sin `mail.google.com`, `gmail.modify`
+  ni labels. El Human-in-the-loop lo garantiza el diseño: el único nodo Gmail de salida es `draft → create`.
 - La memoria (Airtable, M3) sigue con un token limitado a una sola base.
 
 ### Workflow
@@ -257,7 +259,7 @@ URL=http://localhost:5678/webhook/ckp3-manager-mudanzas-anden/chat OUTDIR=respue
 
 | Nodo de la rúbrica | Cómo está hecho |
 |---|---|
-| **① IF anti auto-reply** | Inmediatamente después del trigger. Condiciones visuales en OR, sin distinguir mayúsculas: asunto contiene *Auto-reply, Automatic reply, Respuesta automática, Out of office, Fuera de la oficina, Undeliverable, Delivery Status Notification, No entregado*; remitente contiene *no-reply@, noreply@, mailer-daemon@, postmaster@*; cabeceras RFC 3834 `Auto-Submitted: auto-…` o `X-Autoreply`. La rama *true* termina en un Stop: no llama a la IA, al CRM ni a Slack. |
+| **① IF anti auto-reply** | Inmediatamente después del trigger. Condiciones visuales en OR, sin distinguir mayúsculas: asunto contiene *Auto-reply, Automatic reply, Respuesta automática, Out of office, Fuera de la oficina, Undeliverable, Delivery Status Notification, No entregado*; remitente contiene *no-reply@, noreply@, mailer-daemon@, postmaster@*; cabeceras RFC 3834 `Auto-Submitted: auto-…` (busca `: auto-`, así `Auto-Submitted: no` no se descarta) o `X-Autoreply`. La rama *true* termina en un Stop: no llama a la IA, al CRM ni a Slack. |
 | **② Look up antes del Create** | Conector nativo **HubSpot · Search** (`email EQ`, *Always Output Data*) → IF por `id`. *Sí* → `PATCH /crm/v3/objects/contacts/{id}` (solo completa campos vacíos y pone `hs_lead_status = IN_PROGRESS`); *No* → `POST /crm/v3/objects/contacts` (`lifecyclestage = lead`). Create/Update usan la **misma credencial OAuth2** (*predefined credential type*), porque el nodo nativo solo ofrece *Create or Update* sobre la API v1. |
 | **③ Create Draft (HITL)** | Gmail `draft → create` con `threadId` del correo original y `sendTo` = remitente. Ningún nodo del workflow envía correos. |
 | **④ Set de limpieza** | Deja solo `From` (email extraído de "Nombre <mail>", minúsculas), `FromName`, `Subject` (≤ 200), `BodyText` (texto plano sin el hilo citado, ≤ 3000) e ids de hilo. El IF siguiente corta si el email está vacío o mal formado. Antes de Slack hay un **segundo Set** que deja un único campo `text` (≤ 900 caracteres), sin cuerpo, HTML ni adjuntos (el trigger no descarga binarios). |
@@ -276,6 +278,10 @@ datos clave y contador.
 | 3 | "Flete a Plottier" desde otra casilla (Martín Gómez), contacto inexistente | Look up vacío → **Create** | Contacto nuevo con el nombre de la firma, no el del remitente. |
 | 4 | Consulta de precio y descuento | `CONSULTA_COMERCIAL` → Update | Borrador sin precios; aviso en Slack (`ok: true`). |
 | 5 | Reclamo por una mesa rota | `RECLAMO` → Update | Borrador derivando a una persona; aviso en Slack; memoria `Estado del caso = escalado`, `Mensajes = 4`. |
+| 6 | "Automatic reply: Out of office" + un seguimiento normal, **en el mismo sondeo** | Ítem 1 → IF ① → Stop · ítem 2 → recorrido completo | El auto-reply se descarta y el otro correo sigue solo (borrador + Slack). |
+
+Ramas que no se ejecutaron con correos reales: *payload inválido*, *contingencia de IA* y remitente `no-reply@`
+(Gmail no deja enviar como otra dirección). Quedan en el lienzo y se ven con *Test step*.
 
 Hallazgo real: la cuenta de HubSpot tiene conectada la casilla, y HubSpot **crea contactos solo** con cada
 correo recibido (origen `EMAIL_INTEGRATION`), segundos antes de que corra Andi. Sin el Look up, el Create
